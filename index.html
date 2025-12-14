@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="BR360 Intelligence - Consultoria estratégica full-stack e inovação corporativa.">
+    <title>BR360 Intelligence | Design Estratégico & Inovação</title>
+    <meta name="description" content="Consultoria estratégica full-stack. Vagas limitadas para ciclo semanal.">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="BR360 Intelligence">
+    <meta property="og:description" content="Transformamos complexidade em narrativa de impacto.">
     <meta name="theme-color" content="#050505">
-    <title>BR360 Intelligence | Estratégia & Inovação</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,11 +29,11 @@
                         bgCard: '#0F0F0F',
                         accent: '#6366f1',
                     },
-                    animation: {
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
                     backgroundImage: {
                         'noise': "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     }
                 }
             }
@@ -39,22 +43,18 @@
     <style>
         body { background-color: #050505; color: white; overflow-x: hidden; }
         .glass { background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 0, 0.2, 1); will-change: opacity, transform; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 0, 0.2, 1); will-change: transform, opacity; }
         .reveal.active { opacity: 1; transform: translateY(0); }
         .page-section { display: none; opacity: 0; transition: opacity 0.3s ease; }
         .page-section.active { display: block; opacity: 1; }
-        .text-gradient { background: linear-gradient(to right, #818cf8, #c084fc, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        /* Modal & Dialogs */
+        /* Dialog/Modal Styles */
         dialog { transition: opacity 0.3s ease-out, transform 0.3s ease-out; opacity: 0; transform: scale(0.95); }
         dialog[open] { opacity: 1; transform: scale(1); }
         dialog::backdrop { background: rgba(0,0,0,0.9); backdrop-filter: blur(5px); }
-
-        /* Scarcity Bar */
-        #scarcity-bar { animation: slideDown 0.5s ease-out forwards; }
-        @keyframes slideDown { from { transform: translateY(-100%); } to { transform: translateY(0); } }
-
-        ::-webkit-scrollbar { width: 8px; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #555; }
@@ -62,21 +62,26 @@
     
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="antialiased selection:bg-indigo-500 selection:text-white font-body">
+<body class="antialiased font-body">
 
-    <div class="fixed inset-0 bg-noise opacity-[0.03] pointer-events-none z-[50]"></div>
+    <div class="fixed inset-0 bg-noise opacity-[0.03] pointer-events-none z-[0]"></div>
 
-    <div id="scarcity-bar" class="fixed top-0 w-full z-[60] bg-indigo-600 text-white text-xs md:text-sm font-bold py-2 text-center shadow-lg flex justify-center items-center gap-2">
-        <span class="animate-pulse">●</span>
-        <span>Abertura de Agenda Semanal:</span>
-        <span id="slots-counter" class="bg-black/20 px-2 py-0.5 rounded text-white border border-white/10">Calculando...</span>
-        <span class="hidden md:inline">vagas disponíveis para Kick-off.</span>
+    <div id="scarcity-bar" class="fixed top-0 w-full z-[60] bg-gradient-to-r from-indigo-900 to-purple-900 text-white text-xs font-bold py-2 px-4 flex justify-center items-center gap-4 border-b border-white/10 shadow-lg">
+        <div class="flex items-center gap-2">
+            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+            <span>Ciclo Semanal: <span id="slots-count" class="text-green-300">04</span> vagas restantes</span>
+        </div>
+        <div class="hidden sm:block w-px h-4 bg-white/20"></div>
+        <div class="flex items-center gap-2 font-mono opacity-90">
+            <span>Encerra em:</span>
+            <span id="countdown-timer" class="bg-black/30 px-2 py-0.5 rounded border border-white/10">00:00:00</span>
+        </div>
     </div>
 
     <nav id="navbar" class="fixed top-8 w-full z-50 py-4 px-4 transition-all duration-300">
         <div class="max-w-7xl mx-auto glass rounded-2xl px-6 py-4 flex justify-between items-center relative">
             <a href="#" onclick="route(event, 'home')" class="flex flex-col leading-none group cursor-pointer select-none">
-                <span class="text-2xl font-black font-display tracking-tighter text-gradient group-hover:opacity-80 transition-opacity">BR360</span>
+                <span class="text-2xl font-black font-display tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">BR360</span>
                 <span class="text-[9px] font-bold uppercase tracking-[0.3em] text-gray-500 ml-0.5">Intelligence</span>
             </a>
 
@@ -90,7 +95,7 @@
             </div>
 
             <button onclick="route(event, 'contact')" class="hidden md:flex items-center gap-2 px-6 py-2.5 bg-white text-black rounded-full text-sm font-bold hover:bg-indigo-50 hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-                Agendar Kick-off
+                Aplicar para Vaga
             </button>
             
             <button id="mobile-menu-btn" class="lg:hidden p-2 text-white bg-white/10 rounded-full hover:bg-white/20"><i data-lucide="menu" class="w-6 h-6"></i></button>
@@ -101,130 +106,87 @@
         <button id="close-menu-btn" class="absolute top-8 right-8 p-3 text-white bg-white/10 rounded-full"><i data-lucide="x" class="w-6 h-6"></i></button>
         <div class="space-y-8">
             <button onclick="route(event, 'home', true)" class="block text-5xl font-black font-display text-white">Início</button>
-            <button onclick="route(event, 'solutions', true)" class="block text-4xl font-bold font-display text-gray-400 text-left hover:text-white">Soluções</button>
-            <button onclick="route(event, 'cases', true)" class="block text-4xl font-bold font-display text-gray-400 text-left hover:text-white">Cases</button>
-            <a href="https://medium.com/" target="_blank" class="block text-4xl font-bold font-display text-gray-400 text-left hover:text-white">Insights</a>
+            <button onclick="route(event, 'solutions', true)" class="block text-4xl font-bold font-display text-gray-400 hover:text-white text-left">Soluções</button>
+            <button onclick="route(event, 'cases', true)" class="block text-4xl font-bold font-display text-gray-400 hover:text-white text-left">Cases</button>
+            <a href="https://medium.com/" target="_blank" class="block text-4xl font-bold font-display text-gray-400 hover:text-white text-left">Insights ↗</a>
             <button onclick="route(event, 'contact', true)" class="block text-5xl font-black font-display text-white text-left">Contato</button>
         </div>
     </div>
 
     <main id="home" class="page-section active pt-28">
-        <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
             <div class="absolute inset-0 z-0">
-                <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1974&auto=format&fit=crop" loading="lazy" class="w-full h-full object-cover opacity-30 mix-blend-luminosity">
-                <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/90 to-[#050505]/30"></div>
+                <div class="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505] z-10"></div>
+                <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070&auto=format&fit=crop" loading="lazy" class="w-full h-full object-cover opacity-20 mix-blend-luminosity">
             </div>
             <div class="relative z-10 max-w-6xl mx-auto px-6 text-center">
-                <div class="reveal inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8 hover:bg-white/10 transition-colors cursor-default shadow-lg shadow-indigo-500/10">
-                    <span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span></span>
-                    <span class="text-xs font-bold text-gray-300 uppercase tracking-widest font-display">Vagas da semana abertas</span>
+                <div class="reveal inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8">
+                    <span class="w-2 h-2 bg-indigo-500 rounded-full animate-pulse"></span>
+                    <span class="text-xs font-bold text-gray-300 uppercase tracking-widest font-display">Vagas Abertas: Semana 42</span>
                 </div>
-                <h1 class="reveal delay-100 text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter text-white mb-8 leading-[0.9] font-display">A evolução da <br /><span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">sua marca.</span></h1>
-                <p class="reveal delay-200 text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-12 font-body leading-relaxed font-light">Unimos criatividade visual, tecnologia e narrativa institucional para posicionar líderes e empresas na nova economia.</p>
+                <h1 class="reveal delay-100 text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter text-white mb-8 leading-[0.9] font-display">
+                    Estratégia <br /><span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">P2P & High-End.</span>
+                </h1>
+                <p class="reveal delay-200 text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-12 font-body font-light">
+                    Consultoria de elite para quem não tem tempo a perder. Apenas 10 empresas atendidas por ciclo semanal.
+                </p>
                 <div class="reveal delay-300 flex flex-col sm:flex-row items-center justify-center gap-6">
-                    <button onclick="document.getElementById('method-preview').scrollIntoView({behavior: 'smooth'})" class="group px-8 py-4 bg-white text-black rounded-full font-bold hover:scale-105 transition-all shadow-[0_0_30px_rgba(255,255,255,0.2)] flex items-center gap-2">
-                        Conhecer Método <i data-lucide="arrow-down" class="w-4 h-4 group-hover:translate-y-1 transition-transform"></i>
+                    <button onclick="route(event, 'contact')" class="px-8 py-4 bg-white text-black rounded-full font-bold hover:scale-105 transition-all shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                        Aplicar Agora
                     </button>
-                    <button onclick="route(event, 'cases')" class="px-8 py-4 bg-transparent border border-white/20 text-white rounded-full font-bold hover:bg-white/5 transition-colors">Ver Cases</button>
+                    <button onclick="document.getElementById('services-preview').scrollIntoView({behavior:'smooth'})" class="px-8 py-4 border border-white/20 text-white rounded-full font-bold hover:bg-white/5">
+                        Como Funciona
+                    </button>
                 </div>
             </div>
         </section>
 
-        <section id="method-preview" class="py-32 bg-[#050505] border-b border-white/5 relative overflow-hidden">
-            <div class="max-w-6xl mx-auto px-6 relative z-10">
-                <div class="reveal text-center mb-24">
-                    <h2 class="text-5xl font-black font-display tracking-tight text-white mb-6">Método Sprint 360º</h2>
-                    <p class="text-xl text-gray-400 font-light max-w-3xl mx-auto">Eliminamos o "achismo" para entregar resultados baseados em dados.</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
-                    <div class="reveal p-8 rounded-3xl bg-[#111] border border-white/5 relative hover:border-indigo-500/50 transition-all duration-300">
-                        <div class="absolute -top-4 left-6 bg-indigo-900/50 border border-indigo-500/30 px-3 py-1 rounded-full text-indigo-300 font-bold text-[10px] uppercase tracking-wider">Sprint 01</div>
-                        <div class="mb-6 mt-2 text-indigo-400"><i data-lucide="microscope" class="w-10 h-10"></i></div>
-                        <h3 class="text-2xl font-bold text-white mb-4 font-display">Imersão</h3>
-                        <p class="text-sm text-gray-400">Análise SWOT, Persona Mapping e Diagnóstico.</p>
+        <section id="services-preview" class="py-32 border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="reveal bg-[#111] p-10 rounded-3xl border border-white/10 hover:border-indigo-500/50 transition-colors">
+                        <i data-lucide="zap" class="w-10 h-10 text-indigo-500 mb-6"></i>
+                        <h3 class="text-2xl font-bold text-white mb-4">Sprint 360º</h3>
+                        <p class="text-gray-400">Diagnóstico e plano de ação em 72 horas. Sem enrolação, foco em gargalos.</p>
                     </div>
-                    <div class="reveal delay-100 p-8 rounded-3xl bg-[#111] border border-white/5 relative hover:border-purple-500/50 transition-all duration-300">
-                        <div class="absolute -top-4 left-6 bg-purple-900/50 border border-purple-500/30 px-3 py-1 rounded-full text-purple-300 font-bold text-[10px] uppercase tracking-wider">Sprint 02</div>
-                        <div class="mb-6 mt-2 text-purple-400"><i data-lucide="compass" class="w-10 h-10"></i></div>
-                        <h3 class="text-2xl font-bold text-white mb-4 font-display">Estratégia</h3>
-                        <p class="text-sm text-gray-400">Brand Persona, Arquitetura de Canais e Tática.</p>
+                    <div class="reveal delay-100 bg-[#111] p-10 rounded-3xl border border-white/10 hover:border-pink-500/50 transition-colors">
+                        <i data-lucide="target" class="w-10 h-10 text-pink-500 mb-6"></i>
+                        <h3 class="text-2xl font-bold text-white mb-4">Growth & Ads</h3>
+                        <p class="text-gray-400">Gestão de tráfego de alta performance. ROI ou nada.</p>
                     </div>
-                    <div class="reveal delay-200 p-8 rounded-3xl bg-[#111] border border-white/5 relative hover:border-pink-500/50 transition-all duration-300">
-                        <div class="absolute -top-4 left-6 bg-pink-900/50 border border-pink-500/30 px-3 py-1 rounded-full text-pink-300 font-bold text-[10px] uppercase tracking-wider">Sprint 03</div>
-                        <div class="mb-6 mt-2 text-pink-400"><i data-lucide="cpu" class="w-10 h-10"></i></div>
-                        <h3 class="text-2xl font-bold text-white mb-4 font-display">Execução</h3>
-                        <p class="text-sm text-gray-400">Go To Market, Setup de Ferramentas e Operação.</p>
-                    </div>
-                    <div class="reveal delay-300 p-8 rounded-3xl bg-[#111] border border-white/5 relative hover:border-emerald-500/50 transition-all duration-300">
-                        <div class="absolute -top-4 left-6 bg-emerald-900/50 border border-emerald-500/30 px-3 py-1 rounded-full text-emerald-300 font-bold text-[10px] uppercase tracking-wider">Sprint 04</div>
-                        <div class="mb-6 mt-2 text-emerald-400"><i data-lucide="rocket" class="w-10 h-10"></i></div>
-                        <h3 class="text-2xl font-bold text-white mb-4 font-display">Growth</h3>
-                        <p class="text-sm text-gray-400">Lançamento, Monitoramento de Dados e Scale-up.</p>
+                    <div class="reveal delay-200 bg-[#111] p-10 rounded-3xl border border-white/10 hover:border-emerald-500/50 transition-colors">
+                        <i data-lucide="shield-check" class="w-10 h-10 text-emerald-500 mb-6"></i>
+                        <h3 class="text-2xl font-bold text-white mb-4">ESG & Tech</h3>
+                        <p class="text-gray-400">Adequação regulatória e modernização de stack tecnológico.</p>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <section class="py-32 px-6 max-w-7xl mx-auto">
-            <div class="reveal mb-24 text-center">
-                <p class="text-sm font-bold text-indigo-500 uppercase tracking-[0.2em] mb-3 font-display">Nossos Pilares</p>
-                <h2 class="text-5xl md:text-6xl font-black text-white tracking-tighter font-display">Ecossistema Full-Stack</h2>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="reveal group relative h-[480px] rounded-[32px] overflow-hidden cursor-pointer border border-white/10" onclick="openModal('modal-tech')">
-                    <img src="https://images.unsplash.com/photo-1607799275518-d6cfa4828a6d?q=80&w=2074&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 p-8 w-full z-10">
-                        <h3 class="text-3xl font-bold text-white mb-2 font-display">Brand & Tech</h3>
-                        <div class="flex items-center gap-2 text-xs font-bold text-indigo-400 uppercase tracking-wider mt-4">Ver Detalhes <i data-lucide="arrow-right" class="w-4 h-4"></i></div>
-                    </div>
-                </div>
-                <div class="reveal delay-100 group relative h-[480px] rounded-[32px] overflow-hidden cursor-pointer border border-white/10" onclick="openModal('modal-av')">
-                    <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 p-8 w-full z-10">
-                        <h3 class="text-3xl font-bold text-white mb-2 font-display">Audiovisual</h3>
-                        <div class="flex items-center gap-2 text-xs font-bold text-pink-400 uppercase tracking-wider mt-4">Ver Detalhes <i data-lucide="arrow-right" class="w-4 h-4"></i></div>
-                    </div>
-                </div>
-                </div>
         </section>
     </main>
 
     <main id="solutions" class="page-section pt-32 pb-20">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-20">
-                <h1 class="text-5xl md:text-7xl font-black font-display mb-6">Soluções & Planos</h1>
-                <p class="text-xl text-gray-400">Modelos de contratação adaptáveis.</p>
-            </div>
-            <div class="grid md:grid-cols-3 gap-6 mb-24">
-                <div class="p-8 rounded-3xl bg-[#0F0F0F] border border-white/10 flex flex-col">
-                    <h3 class="text-xl font-bold text-white mb-2">Start</h3>
-                    <div class="text-3xl font-bold text-white mb-6">R$ 2.5k<span class="text-sm text-gray-500 font-normal">/mês</span></div>
-                    <ul class="space-y-3 text-sm text-gray-300 mb-8 flex-1">
-                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4"></i> Gestão de 1 Rede Social</li>
-                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4"></i> 4 Posts/mês</li>
+            <h1 class="text-5xl md:text-7xl font-black font-display mb-12">Soluções Dedicadas</h1>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="p-10 rounded-[32px] bg-[#0F0F0F] border border-white/10">
+                    <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-4 block">Personal</span>
+                    <h2 class="text-3xl font-bold text-white mb-6">Líderes & Experts</h2>
+                    <ul class="space-y-4 text-gray-400 mb-8">
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-indigo-500"></i> Personal Branding</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-indigo-500"></i> Posicionamento LinkedIn</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-indigo-500"></i> Mentoria de Carreira</li>
                     </ul>
-                    <button onclick="route(event, 'contact')" class="w-full py-3 rounded-xl border border-white/20 hover:bg-white hover:text-black font-bold transition-colors">Selecionar</button>
+                    <button onclick="route(event, 'contact')" class="w-full py-4 rounded-xl border border-white/20 hover:bg-white hover:text-black font-bold transition-colors">Agendar Call</button>
                 </div>
-                <div class="p-8 rounded-3xl bg-[#161616] border border-indigo-500/50 relative flex flex-col transform scale-105 shadow-2xl">
-                    <span class="absolute top-4 right-4 bg-indigo-500 text-white text-[10px] font-bold px-2 py-1 rounded">POPULAR</span>
-                    <h3 class="text-xl font-bold text-white mb-2">Growth</h3>
-                    <div class="text-3xl font-bold text-white mb-6">R$ 5k<span class="text-sm text-gray-500 font-normal">/mês</span></div>
-                    <ul class="space-y-3 text-sm text-gray-300 mb-8 flex-1">
-                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-indigo-400"></i> Gestão de 2 Redes Sociais</li>
-                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-indigo-400"></i> Tráfego Pago</li>
+                <div class="p-10 rounded-[32px] bg-[#0F0F0F] border border-white/10">
+                    <span class="text-xs font-bold text-pink-400 uppercase tracking-widest mb-4 block">Corporate</span>
+                    <h2 class="text-3xl font-bold text-white mb-6">Scale-ups & Enterprise</h2>
+                    <ul class="space-y-4 text-gray-400 mb-8">
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-pink-500"></i> Full-Stack Marketing</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-pink-500"></i> Consultoria ESG</li>
+                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-pink-500"></i> Rebranding</li>
                     </ul>
-                    <button onclick="route(event, 'contact')" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition-colors">Selecionar</button>
-                </div>
-                <div class="p-8 rounded-3xl bg-[#0F0F0F] border border-white/10 flex flex-col">
-                    <h3 class="text-xl font-bold text-white mb-2">Enterprise</h3>
-                    <div class="text-3xl font-bold text-white mb-6">Sob Consulta</div>
-                    <ul class="space-y-3 text-sm text-gray-300 mb-8 flex-1">
-                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4"></i> Full-Stack Marketing</li>
-                        <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4"></i> Squad Dedicado</li>
-                    </ul>
-                    <button onclick="route(event, 'contact')" class="w-full py-3 rounded-xl border border-white/20 hover:bg-white hover:text-black font-bold transition-colors">Falar com Consultor</button>
+                    <button onclick="route(event, 'contact')" class="w-full py-4 rounded-xl bg-white text-black font-bold hover:bg-gray-200 transition-colors">Solicitar Proposta</button>
                 </div>
             </div>
         </div>
@@ -232,26 +194,21 @@
 
     <main id="cases" class="page-section pt-32 pb-20">
         <div class="max-w-7xl mx-auto px-6 text-center">
-            <h1 class="text-5xl font-black font-display mb-6">Nossos Cases</h1>
-            <p class="text-gray-400 mb-12">Projetos que transformaram mercados.</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-                <div class="bg-[#111] rounded-3xl overflow-hidden border border-white/10 group cursor-pointer">
-                    <div class="h-64 bg-gray-800 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    </div>
-                    <div class="p-8">
-                        <h3 class="text-2xl font-bold text-white mb-2">Fintech Revolution</h3>
-                        <p class="text-gray-400 text-sm">Rebranding completo e estratégia de Growth que resultou em +300% de leads em 6 meses.</p>
-                    </div>
+            <h1 class="text-5xl font-black font-display mb-6">Portfólio Secreto</h1>
+            <p class="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">Devido a acordos de confidencialidade (NDA), apresentamos apenas dados anonimizados de impacto.</p>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-[#111] p-8 rounded-3xl border border-white/10">
+                    <div class="text-4xl font-bold text-white mb-2">+240%</div>
+                    <p class="text-gray-500 text-sm">ROAS em Fintech (3 meses)</p>
                 </div>
-                <div class="bg-[#111] rounded-3xl overflow-hidden border border-white/10 group cursor-pointer">
-                    <div class="h-64 bg-gray-800 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2032&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    </div>
-                    <div class="p-8">
-                        <h3 class="text-2xl font-bold text-white mb-2">Eco-Commerce</h3>
-                        <p class="text-gray-400 text-sm">Implementação de narrativa ESG e loja virtual de alta performance.</p>
-                    </div>
+                <div class="bg-[#111] p-8 rounded-3xl border border-white/10">
+                    <div class="text-4xl font-bold text-white mb-2">R$ 12M</div>
+                    <p class="text-gray-500 text-sm">Pipeline gerado B2B</p>
+                </div>
+                <div class="bg-[#111] p-8 rounded-3xl border border-white/10">
+                    <div class="text-4xl font-bold text-white mb-2">Top 1</div>
+                    <p class="text-gray-500 text-sm">Google Ranking (Logística)</p>
                 </div>
             </div>
         </div>
@@ -259,13 +216,13 @@
 
     <main id="contact" class="page-section pt-32 pb-20 bg-[#080808]">
         <div class="max-w-4xl mx-auto px-6">
-            <h1 class="text-5xl font-black font-display mb-4 text-center">Inicie seu Projeto</h1>
-            <p class="text-gray-400 text-center mb-12 max-w-xl mx-auto">Vagas limitadas por semana para garantir qualidade de entrega.</p>
+            <h1 class="text-5xl font-black font-display mb-4 text-center">Aplicação para Vaga</h1>
+            <p class="text-gray-400 text-center mb-12 max-w-xl mx-auto">Devido à alta demanda, analisamos perfis para garantir o fit com nossa metodologia.</p>
             
-            <form action="https://formsubmit.co/seuemail@br360.com" method="POST" class="bg-[#111] p-10 rounded-[32px] border border-white/10 shadow-2xl">
+            <form action="https://formsubmit.co/SEU_EMAIL_AQUI" method="POST" class="bg-[#111] p-8 md:p-12 rounded-[32px] border border-white/10 shadow-2xl">
                 <input type="text" name="_honey" style="display:none">
                 <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_next" value="https://br360-intelligence.github.io/thanks.html">
+                <input type="hidden" name="_next" value="https://br360.github.io/thanks">
 
                 <div class="grid md:grid-cols-2 gap-6 mb-6">
                     <div>
@@ -273,154 +230,191 @@
                         <input type="text" name="name" required class="w-full bg-black border border-white/10 rounded-xl px-4 py-4 text-white focus:border-indigo-500 focus:outline-none transition-colors">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Empresa</label>
-                        <input type="text" name="company" required class="w-full bg-black border border-white/10 rounded-xl px-4 py-4 text-white focus:border-indigo-500 focus:outline-none transition-colors">
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Whatsapp</label>
+                        <input type="tel" name="phone" required class="w-full bg-black border border-white/10 rounded-xl px-4 py-4 text-white focus:border-indigo-500 focus:outline-none transition-colors">
                     </div>
                 </div>
                 <div class="mb-6">
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Email</label>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Email Corporativo</label>
                     <input type="email" name="email" required class="w-full bg-black border border-white/10 rounded-xl px-4 py-4 text-white focus:border-indigo-500 focus:outline-none transition-colors">
                 </div>
                 <div class="mb-8">
                     <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Desafio Principal</label>
                     <textarea name="message" rows="3" class="w-full bg-black border border-white/10 rounded-xl px-4 py-4 text-white focus:border-indigo-500 focus:outline-none transition-colors"></textarea>
                 </div>
-                <button type="submit" class="w-full py-5 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-500 transition-colors shadow-lg">Solicitar Kick-off</button>
-                <p class="text-xs text-gray-500 mt-4 text-center">Ao enviar, você concorda com nossos <a href="#" onclick="openModal('modal-terms')" class="underline hover:text-white">Termos de Uso</a>.</p>
+                <button type="submit" class="w-full py-5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl hover:opacity-90 transition-opacity shadow-lg">
+                    Enviar Aplicação
+                </button>
+                <p class="text-center text-xs text-gray-600 mt-4"><i data-lucide="lock" class="w-3 h-3 inline"></i> Seus dados estão seguros.</p>
             </form>
         </div>
     </main>
 
-    <footer class="bg-black border-t border-white/10 pt-16 pb-24 px-6 mt-auto">
-        <div class="max-w-7xl mx-auto text-center md:text-left">
-            <div class="grid md:grid-cols-4 gap-8 mb-12">
-                <div class="col-span-1">
+    <footer class="bg-black border-t border-white/10 pt-16 pb-8 px-6 mt-auto">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-12">
+                <div>
                     <span class="text-2xl font-black font-display text-white">BR360</span>
-                    <p class="text-xs text-gray-500 mt-4">Campinas, SP</p>
+                    <p class="text-xs text-gray-500 mt-2 max-w-xs">Inteligência estratégica para negócios que não aceitam o mediano.</p>
                 </div>
-                <div>
-                    <h4 class="font-bold text-white mb-4">Legal</h4>
-                    <ul class="space-y-2 text-sm text-gray-500">
-                        <li><button onclick="openModal('modal-privacy')" class="hover:text-white transition-colors">Privacidade</button></li>
-                        <li><button onclick="openModal('modal-terms')" class="hover:text-white transition-colors">Termos de Uso</button></li>
-                        <li><button onclick="document.getElementById('cookie-banner').classList.remove('hidden')" class="hover:text-white transition-colors">Cookies</button></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold text-white mb-4">Social</h4>
-                    <div class="flex gap-4 justify-center md:justify-start">
-                        <a href="#" class="text-gray-500 hover:text-white"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
-                        <a href="#" class="text-gray-500 hover:text-white"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-                    </div>
+                <div class="flex gap-6 text-sm font-medium text-gray-400">
+                    <button onclick="openModal('modal-privacy')" class="hover:text-white transition-colors">Privacidade</button>
+                    <button onclick="openModal('modal-terms')" class="hover:text-white transition-colors">Termos de Uso</button>
+                    <a href="https://linkedin.com" target="_blank" class="hover:text-white transition-colors">LinkedIn</a>
                 </div>
             </div>
-            <div class="border-t border-white/10 pt-8 text-xs text-gray-600 flex flex-col md:flex-row justify-between items-center">
+            <div class="border-t border-white/10 pt-8 text-xs text-gray-600 flex justify-between">
                 <p>&copy; 2025 BR360 Intelligence.</p>
-                <p>Systems Operational</p>
+                <p>Campinas, SP</p>
             </div>
         </div>
     </footer>
 
-    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-[#111] border-t border-white/10 p-6 z-[70] hidden flex-col md:flex-row items-center justify-between gap-4 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
-        <p class="text-sm text-gray-300 max-w-2xl">
-            Utilizamos cookies para análise de tráfego e personalização. Ao continuar, você concorda com nossa <button onclick="openModal('modal-privacy')" class="text-indigo-400 underline">Política de Privacidade</button>.
-        </p>
-        <div class="flex gap-3">
-            <button onclick="acceptCookies()" class="px-6 py-2 bg-indigo-600 text-white rounded-full font-bold text-sm hover:bg-indigo-500">Aceitar</button>
-            <button onclick="document.getElementById('cookie-banner').classList.add('hidden')" class="px-6 py-2 border border-white/20 text-white rounded-full font-bold text-sm hover:bg-white/10">Fechar</button>
+    <a href="https://wa.me/5519999999999" target="_blank" class="fixed bottom-6 right-6 z-40 w-16 h-16 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300 group">
+        <i data-lucide="message-circle" class="w-8 h-8"></i>
+        <span class="absolute right-full mr-4 bg-white text-black px-3 py-1 rounded-lg text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Falar Agora</span>
+    </a>
+
+    <div id="cookie-banner" class="fixed bottom-4 inset-x-4 z-50 p-6 bg-[#111] border border-white/10 rounded-2xl shadow-2xl flex flex-col md:flex-row items-center justify-between gap-4 transform translate-y-full opacity-0 transition-all duration-500 hidden">
+        <p class="text-sm text-gray-400">Utilizamos cookies para otimizar sua experiência e métricas de tráfego. Ao continuar, você concorda com nossa <button onclick="openModal('modal-privacy')" class="text-indigo-400 underline">Política</button>.</p>
+        <div class="flex gap-3 shrink-0">
+            <button id="cookie-decline" class="px-4 py-2 rounded-lg text-sm text-gray-400 hover:text-white transition-colors">Recusar</button>
+            <button id="cookie-accept" class="px-6 py-2 rounded-lg bg-indigo-600 text-white text-sm font-bold hover:bg-indigo-500 transition-colors">Aceitar</button>
         </div>
     </div>
 
-    <dialog id="modal-tech" class="bg-[#111] text-white p-0 rounded-[32px] max-w-5xl w-full border border-white/10 shadow-2xl backdrop:bg-black/95">
-        <div class="p-10 relative"><h3 class="text-3xl font-bold mb-4">Brand & Tech</h3><p class="text-gray-400 mb-6">Desenvolvimento high-end e identidade visual.</p><button onclick="closeModal('modal-tech')" class="px-6 py-2 border border-white/20 rounded-full">Fechar</button></div>
-    </dialog>
-    <dialog id="modal-privacy" class="bg-[#111] text-white p-0 rounded-[32px] max-w-3xl w-full border border-white/10 shadow-2xl backdrop:bg-black/95">
-        <div class="p-8 md:p-12 h-[80vh] overflow-y-auto">
-            <div class="flex justify-between items-center mb-8 sticky top-0 bg-[#111] py-4 border-b border-white/10">
-                <h2 class="text-2xl font-bold font-display">Política de Privacidade</h2>
-                <button onclick="closeModal('modal-privacy')" class="p-2 hover:bg-white/10 rounded-full"><i data-lucide="x"></i></button>
-            </div>
-            <div class="space-y-6 text-gray-300 text-sm leading-relaxed">
-                <p><strong>1. Coleta de Dados:</strong> Coletamos apenas informações essenciais (nome, e-mail, empresa) fornecidas voluntariamente via formulário para fins de contato comercial.</p>
-                <p><strong>2. Uso das Informações:</strong> Seus dados são utilizados exclusivamente para responder solicitações de orçamento e enviar insights (caso opte pela newsletter). Não vendemos dados a terceiros.</p>
-                <p><strong>3. Cookies:</strong> Utilizamos cookies analíticos (Google Analytics) para entender como você navega no site e melhorar a UX.</p>
-                <p><strong>4. Seus Direitos:</strong> Você pode solicitar a exclusão de seus dados a qualquer momento enviando um e-mail para dpo@br360.com.</p>
-            </div>
+    <dialog id="modal-privacy" class="bg-[#111] text-white p-0 rounded-2xl max-w-2xl w-full border border-white/10 shadow-2xl backdrop:bg-black/95">
+        <div class="p-6 border-b border-white/10 flex justify-between items-center">
+            <h3 class="text-xl font-bold font-display">Política de Privacidade</h3>
+            <button onclick="closeModal('modal-privacy')" class="p-2 hover:bg-white/10 rounded-full"><i data-lucide="x" class="w-5 h-5"></i></button>
+        </div>
+        <div class="p-8 text-gray-400 text-sm leading-relaxed max-h-[60vh] overflow-y-auto">
+            <h4 class="text-white font-bold mb-2">1. Coleta de Dados</h4>
+            <p class="mb-4">Coletamos informações estritamente necessárias para prestação de consultoria (Nome, Email, Telefone Corporativo). Não vendemos dados.</p>
+            <h4 class="text-white font-bold mb-2">2. Finalidade</h4>
+            <p class="mb-4">Os dados são usados para contato comercial e envio de insights (Newsletter), caso autorizado.</p>
+            <h4 class="text-white font-bold mb-2">3. Seus Direitos</h4>
+            <p>Você pode solicitar a exclusão dos seus dados a qualquer momento via dpo@br360.com.</p>
+        </div>
+        <div class="p-6 border-t border-white/10 text-right">
+            <button onclick="closeModal('modal-privacy')" class="px-6 py-2 bg-white text-black rounded-lg font-bold text-sm">Entendi</button>
         </div>
     </dialog>
 
-    <dialog id="modal-terms" class="bg-[#111] text-white p-0 rounded-[32px] max-w-3xl w-full border border-white/10 shadow-2xl backdrop:bg-black/95">
-        <div class="p-8 md:p-12 h-[80vh] overflow-y-auto">
-            <div class="flex justify-between items-center mb-8 sticky top-0 bg-[#111] py-4 border-b border-white/10">
-                <h2 class="text-2xl font-bold font-display">Termos de Uso</h2>
-                <button onclick="closeModal('modal-terms')" class="p-2 hover:bg-white/10 rounded-full"><i data-lucide="x"></i></button>
-            </div>
-            <div class="space-y-6 text-gray-300 text-sm leading-relaxed">
-                <p><strong>1. Aceitação:</strong> Ao acessar o site da BR360 Intelligence, você concorda com estes termos.</p>
-                <p><strong>2. Propriedade Intelectual:</strong> Todo o conteúdo (textos, logos, imagens) é propriedade exclusiva da BR360 ou licenciado. É proibida a reprodução sem autorização.</p>
-                <p><strong>3. Limitação de Responsabilidade:</strong> As informações no site são fornecidas "como estão". Não garantimos resultados específicos sem contratação formal de consultoria.</p>
-            </div>
+    <dialog id="modal-terms" class="bg-[#111] text-white p-0 rounded-2xl max-w-2xl w-full border border-white/10 shadow-2xl backdrop:bg-black/95">
+        <div class="p-6 border-b border-white/10 flex justify-between items-center">
+            <h3 class="text-xl font-bold font-display">Termos de Uso</h3>
+            <button onclick="closeModal('modal-terms')" class="p-2 hover:bg-white/10 rounded-full"><i data-lucide="x" class="w-5 h-5"></i></button>
+        </div>
+        <div class="p-8 text-gray-400 text-sm leading-relaxed max-h-[60vh] overflow-y-auto">
+            <p class="mb-4">Ao utilizar este site, você concorda que o conteúdo (textos, design, metodologia) é propriedade intelectual da BR360 Intelligence.</p>
+            <p>A aplicação para vagas não garante atendimento, sujeito à aprovação de fit cultural e disponibilidade de agenda.</p>
+        </div>
+        <div class="p-6 border-t border-white/10 text-right">
+            <button onclick="closeModal('modal-terms')" class="px-6 py-2 bg-white text-black rounded-lg font-bold text-sm">Aceitar</button>
         </div>
     </dialog>
 
     <script>
         lucide.createIcons();
 
-        // 1. Roteamento SPA
+        // 1. ROUTING SYSTEM
+        const validRoutes = ['home', 'solutions', 'cases', 'contact', 'esg'];
+        
         function route(event, pageId, isMobile = false) {
             if (event) event.preventDefault();
-            document.querySelectorAll('.page-section').forEach(s => {
-                s.classList.remove('active');
-                setTimeout(() => { if(!s.classList.contains('active')) s.style.display = 'none'; }, 300);
+            if (!validRoutes.includes(pageId)) return;
+
+            // View Transition
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+                setTimeout(() => { if(!section.classList.contains('active')) section.style.display = 'none'; }, 300);
             });
+
             const target = document.getElementById(pageId);
             if (target) {
                 target.style.display = 'block';
-                setTimeout(() => { target.classList.add('active'); window.scrollTo(0,0); }, 50);
+                requestAnimationFrame(() => {
+                    target.classList.add('active');
+                    window.scrollTo(0,0);
+                });
             }
-            if (isMobile) document.getElementById('mobile-menu').classList.add('hidden');
+
+            // Update Nav State
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-white', 'bg-white/10');
+                btn.classList.add('text-gray-400');
+                if(btn.dataset.target === pageId) {
+                    btn.classList.add('text-white', 'bg-white/10');
+                    btn.classList.remove('text-gray-400');
+                }
+            });
+
+            if (isMobile) toggleMenu();
         }
 
-        // 2. Modals Logic
-        window.openModal = (id) => { document.getElementById(id)?.showModal(); document.body.style.overflow='hidden'; };
-        window.closeModal = (id) => { document.getElementById(id)?.close(); document.body.style.overflow=''; };
-
-        // 3. Mobile Menu Logic
-        document.getElementById('mobile-menu-btn').addEventListener('click', () => document.getElementById('mobile-menu').classList.remove('hidden'));
-        document.getElementById('close-menu-btn').addEventListener('click', () => document.getElementById('mobile-menu').classList.add('hidden'));
-
-        // 4. Lógica de Escassez (Weekly Reset)
-        function updateSlots() {
-            const today = new Date().getDay(); // 0 = Domingo, 1 = Segunda...
-            const totalSlots = 10;
-            // Lógica: Segunda tem 10, Sexta tem 2. (Decaimento: 2 vagas por dia útil)
-            let slotsLeft;
-            if (today === 0 || today === 6) { slotsLeft = 1; } // Fim de semana: 1 vaga de urgência
-            else { slotsLeft = Math.max(1, totalSlots - ((today - 1) * 2)); }
+        // 2. SCARCITY ENGINE (Contagem Regressiva Semanal)
+        function initCountdown() {
+            const timerEl = document.getElementById('countdown-timer');
+            const slotsEl = document.getElementById('slots-count');
             
-            document.getElementById('slots-counter').innerText = slotsLeft;
-        }
-        updateSlots();
+            // Logic: Reset every Sunday midnight
+            const now = new Date();
+            const nextReset = new Date();
+            nextReset.setDate(now.getDate() + (7 - now.getDay()) % 7); // Next Sunday
+            nextReset.setHours(23, 59, 59, 999);
+            
+            // Slots Simulation based on day of week (Monday=10, Sunday=1)
+            const dayIndex = now.getDay(); 
+            const slotsMap = [1, 10, 8, 6, 4, 3, 2]; // Sun, Mon, Tue...
+            slotsEl.innerText = String(slotsMap[dayIndex]).padStart(2, '0');
 
-        // 5. Cookies Logic (LocalStorage)
-        function checkCookies() {
-            if (!localStorage.getItem('br360_consent')) {
-                document.getElementById('cookie-banner').classList.remove('hidden');
-                document.getElementById('cookie-banner').classList.add('flex');
+            setInterval(() => {
+                const diff = nextReset - new Date();
+                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((diff % (1000 * 60)) / 1000);
+                timerEl.innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+            }, 1000);
+        }
+
+        // 3. UI HELPERS
+        function toggleMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMenu);
+        document.getElementById('close-menu-btn').addEventListener('click', toggleMenu);
+
+        window.openModal = (id) => { const m = document.getElementById(id); if(m) { m.showModal(); document.body.style.overflow='hidden'; } };
+        window.closeModal = (id) => { const m = document.getElementById(id); if(m) { m.close(); document.body.style.overflow=''; } };
+
+        // 4. COOKIE LOGIC
+        setTimeout(() => {
+            if(!localStorage.getItem('br360_consent')) {
+                const banner = document.getElementById('cookie-banner');
+                banner.classList.remove('hidden');
+                requestAnimationFrame(() => {
+                    banner.classList.remove('translate-y-full', 'opacity-0');
+                });
             }
-        }
-        window.acceptCookies = () => {
-            localStorage.setItem('br360_consent', 'true');
-            document.getElementById('cookie-banner').classList.add('hidden');
-        };
-        setTimeout(checkCookies, 2000); // Delay para não ser agressivo
+        }, 1500);
 
-        // Init
-        document.addEventListener('DOMContentLoaded', () => {
-            route(null, 'home');
-            const obs = new IntersectionObserver((e) => e.forEach(en => { if(en.isIntersecting) en.target.classList.add('active') }), {threshold: 0.1});
-            document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+        document.getElementById('cookie-accept').addEventListener('click', () => {
+            localStorage.setItem('br360_consent', 'true');
+            document.getElementById('cookie-banner').classList.add('opacity-0');
+            setTimeout(() => document.getElementById('cookie-banner').classList.add('hidden'), 500);
         });
+
+        // 5. OBSERVER (Reveal Animations)
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+        // INIT
+        initCountdown();
+        route(null, 'home');
+
     </script>
 </body>
 </html>
