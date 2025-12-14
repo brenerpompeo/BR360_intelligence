@@ -3,37 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BR360 Intelligence | Design Estratégico & Inovação</title>
-    <meta name="description" content="Consultoria estratégica full-stack. Vagas limitadas para ciclo semanal.">
-    
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="BR360 Intelligence">
-    <meta property="og:description" content="Transformamos complexidade em narrativa de impacto.">
+    <title>BR360 Intelligence | Estratégia, Tech & ESG</title>
+    <meta name="description" content="Consultoria estratégica full-stack. Transformamos complexidade em narrativa de impacto e tecnologia proprietária.">
     <meta name="theme-color" content="#050505">
 
+    <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;400;500;600;700&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Sora:wght@400;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
                         display: ['Sora', 'sans-serif'],
                         body: ['DM Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
                         bg: '#050505',
                         bgCard: '#0F0F0F',
-                        accent: '#6366f1',
+                        primary: '#6366f1', // Indigo
+                        secondary: '#d946ef', // Fuchsia
                     },
                     backgroundImage: {
                         'noise': "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
                     },
                     animation: {
+                        'marquee': 'marquee 40s linear infinite',
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
                     }
                 }
             }
@@ -41,336 +51,760 @@
     </script>
 
     <style>
-        body { background-color: #050505; color: white; overflow-x: hidden; }
-        .glass { background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 0, 0.2, 1); will-change: transform, opacity; }
+        /* Base Styles */
+        body { background-color: #050505; color: #e5e5e5; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        
+        /* Glassmorphism */
+        .glass { background: rgba(10, 10, 10, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .glass-card { background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease; }
+        .glass-card:hover { border-color: rgba(99, 102, 241, 0.3); background: rgba(30, 30, 30, 0.8); }
+
+        /* Animations */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform, opacity; }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        .page-section { display: none; opacity: 0; transition: opacity 0.3s ease; }
-        .page-section.active { display: block; opacity: 1; }
         
-        /* Dialog/Modal Styles */
-        dialog { transition: opacity 0.3s ease-out, transform 0.3s ease-out; opacity: 0; transform: scale(0.95); }
-        dialog[open] { opacity: 1; transform: scale(1); }
-        dialog::backdrop { background: rgba(0,0,0,0.9); backdrop-filter: blur(5px); }
+        /* Page Transitions */
+        .page-view { display: none; opacity: 0; transition: opacity 0.4s ease; }
+        .page-view.active { display: block; opacity: 1; animation: fadeIn 0.5s ease-out forwards; }
         
-        /* Custom Scrollbar */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Utilities */
+        .text-gradient { background: linear-gradient(to right, #818cf8, #d946ef, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #555; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb { background: #555; }
+        
+        /* Dialog */
+        dialog::backdrop { background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px); }
+        dialog[open] { animation: zoomIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        /* Custom Toggle Switch */
+        .toggle-checkbox:checked { right: 0; border-color: #6366f1; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #6366f1; }
+        
+        .transition-height { transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out; }
     </style>
     
+    <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="antialiased font-body">
+<body class="font-body selection:bg-primary selection:text-white">
 
     <div class="fixed inset-0 bg-noise opacity-[0.03] pointer-events-none z-[0]"></div>
 
-    <div id="scarcity-bar" class="fixed top-0 w-full z-[60] bg-gradient-to-r from-indigo-900 to-purple-900 text-white text-xs font-bold py-2 px-4 flex justify-center items-center gap-4 border-b border-white/10 shadow-lg">
+    <!-- Scarcity Bar -->
+    <div id="scarcity-bar" class="fixed top-0 w-full z-[60] bg-gradient-to-r from-indigo-900/90 to-purple-900/90 backdrop-blur-sm text-white text-[10px] sm:text-xs font-bold py-2 px-4 flex justify-center items-center gap-4 border-b border-white/10 shadow-lg font-mono tracking-wide">
         <div class="flex items-center gap-2">
             <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-            <span>Ciclo Semanal: <span id="slots-count" class="text-green-300">04</span> vagas restantes</span>
+            <span>CICLO SEMANAL: <span id="slots-count" class="text-green-300">04</span> VAGAS RESTANTES</span>
         </div>
-        <div class="hidden sm:block w-px h-4 bg-white/20"></div>
-        <div class="flex items-center gap-2 font-mono opacity-90">
-            <span>Encerra em:</span>
-            <span id="countdown-timer" class="bg-black/30 px-2 py-0.5 rounded border border-white/10">00:00:00</span>
+        <div class="hidden sm:block w-px h-3 bg-white/20"></div>
+        <div class="flex items-center gap-2 opacity-90">
+            <span>ENCERRA EM:</span>
+            <span id="countdown-timer" class="bg-black/30 px-2 py-0.5 rounded border border-white/10 tabular-nums">00:00:00</span>
         </div>
     </div>
 
-    <nav id="navbar" class="fixed top-8 w-full z-50 py-4 px-4 transition-all duration-300">
-        <div class="max-w-7xl mx-auto glass rounded-2xl px-6 py-4 flex justify-between items-center relative">
-            <a href="#" onclick="route(event, 'home')" class="flex flex-col leading-none group cursor-pointer select-none">
-                <span class="text-2xl font-black font-display tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">BR360</span>
+    <!-- Navbar -->
+    <header id="site-header" class="fixed top-10 w-full z-50 transition-all duration-300 px-4">
+        <div class="max-w-7xl mx-auto glass rounded-full px-6 py-3 flex justify-between items-center relative">
+            
+            <a href="#" onclick="router('home')" class="flex flex-col leading-none group cursor-pointer select-none">
+                <span class="text-2xl font-black font-display tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 group-hover:opacity-80 transition-opacity">BR360</span>
                 <span class="text-[9px] font-bold uppercase tracking-[0.3em] text-gray-500 ml-0.5">Intelligence</span>
             </a>
 
-            <div class="hidden lg:flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/5">
-                <button onclick="route(event, 'home')" class="nav-btn px-5 py-2 text-sm font-medium text-white bg-white/10 rounded-full transition-colors" data-target="home">Início</button>
-                <button onclick="route(event, 'solutions')" class="nav-btn px-5 py-2 text-sm text-gray-400 hover:text-white transition-colors" data-target="solutions">Soluções</button>
-                <button onclick="route(event, 'cases')" class="nav-btn px-5 py-2 text-sm text-gray-400 hover:text-white transition-colors" data-target="cases">Cases</button>
-                <a href="https://medium.com/" target="_blank" class="nav-btn px-5 py-2 text-sm text-gray-400 hover:text-white transition-colors flex items-center gap-1">
-                    Insights <i data-lucide="external-link" class="w-3 h-3 opacity-50"></i>
-                </a>
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/5">
+                <button onclick="router('home')" class="nav-btn px-6 py-2 text-xs font-medium text-white bg-white/10 rounded-full transition-all" data-target="home">Início</button>
+                <button onclick="router('solutions')" class="nav-btn px-6 py-2 text-xs text-gray-400 hover:text-white transition-all" data-target="solutions">Soluções</button>
+                <button onclick="router('cases')" class="nav-btn px-6 py-2 text-xs text-gray-400 hover:text-white transition-all" data-target="cases">Cases</button>
+                <button onclick="router('blog')" class="nav-btn px-6 py-2 text-xs text-gray-400 hover:text-white transition-all" data-target="blog">Insights</button>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <button onclick="router('contact')" class="hidden md:flex items-center gap-2 px-5 py-2.5 bg-white text-black rounded-full text-xs font-bold hover:bg-gray-200 hover:scale-105 transition-all shadow-lg shadow-white/10">
+                    Agendar Kick-off
+                </button>
+                <button id="menu-btn" class="md:hidden p-2 text-white bg-white/10 rounded-full hover:bg-white/20 transition-colors">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
             </div>
-
-            <button onclick="route(event, 'contact')" class="hidden md:flex items-center gap-2 px-6 py-2.5 bg-white text-black rounded-full text-sm font-bold hover:bg-indigo-50 hover:scale-105 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-                Aplicar para Vaga
-            </button>
-            
-            <button id="mobile-menu-btn" class="lg:hidden p-2 text-white bg-white/10 rounded-full hover:bg-white/20"><i data-lucide="menu" class="w-6 h-6"></i></button>
         </div>
-    </nav>
+    </header>
 
-    <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-50 transform translate-x-full transition-transform duration-300 flex flex-col justify-center px-8 hidden">
-        <button id="close-menu-btn" class="absolute top-8 right-8 p-3 text-white bg-white/10 rounded-full"><i data-lucide="x" class="w-6 h-6"></i></button>
-        <div class="space-y-8">
-            <button onclick="route(event, 'home', true)" class="block text-5xl font-black font-display text-white">Início</button>
-            <button onclick="route(event, 'solutions', true)" class="block text-4xl font-bold font-display text-gray-400 hover:text-white text-left">Soluções</button>
-            <button onclick="route(event, 'cases', true)" class="block text-4xl font-bold font-display text-gray-400 hover:text-white text-left">Cases</button>
-            <a href="https://medium.com/" target="_blank" class="block text-4xl font-bold font-display text-gray-400 hover:text-white text-left">Insights ↗</a>
-            <button onclick="route(event, 'contact', true)" class="block text-5xl font-black font-display text-white text-left">Contato</button>
+    <!-- Mobile Menu Drawer -->
+    <div id="mobile-menu" class="fixed inset-0 bg-bg/95 backdrop-blur-xl z-[70] transform translate-x-full transition-transform duration-300 flex flex-col justify-center px-8">
+        <button id="close-menu" class="absolute top-8 right-8 p-3 text-white bg-white/10 rounded-full hover:bg-white/20"><i data-lucide="x" class="w-6 h-6"></i></button>
+        <div class="space-y-6">
+            <button onclick="mobileNav('home')" class="block text-5xl font-black font-display text-white hover:text-primary transition-colors text-left">Início</button>
+            <button onclick="mobileNav('solutions')" class="block text-4xl font-bold font-display text-gray-500 hover:text-white transition-colors text-left">Soluções</button>
+            <button onclick="mobileNav('cases')" class="block text-4xl font-bold font-display text-gray-500 hover:text-white transition-colors text-left">Cases</button>
+            <button onclick="mobileNav('blog')" class="block text-4xl font-bold font-display text-gray-500 hover:text-white transition-colors text-left">Insights</button>
+            <div class="pt-8 border-t border-white/10">
+                <button onclick="mobileNav('contact')" class="w-full py-4 bg-white text-black font-bold rounded-xl text-lg">Agendar Kick-off</button>
+            </div>
         </div>
     </div>
 
-    <main id="home" class="page-section active pt-28">
-        <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-            <div class="absolute inset-0 z-0">
-                <div class="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505] z-10"></div>
-                <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=2070&auto=format&fit=crop" loading="lazy" class="w-full h-full object-cover opacity-20 mix-blend-luminosity">
-            </div>
-            <div class="relative z-10 max-w-6xl mx-auto px-6 text-center">
-                <div class="reveal inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8">
-                    <span class="w-2 h-2 bg-indigo-500 rounded-full animate-pulse"></span>
-                    <span class="text-xs font-bold text-gray-300 uppercase tracking-widest font-display">Vagas Abertas: Semana 42</span>
-                </div>
-                <h1 class="reveal delay-100 text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter text-white mb-8 leading-[0.9] font-display">
-                    Estratégia <br /><span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">P2P & High-End.</span>
-                </h1>
-                <p class="reveal delay-200 text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-12 font-body font-light">
-                    Consultoria de elite para quem não tem tempo a perder. Apenas 10 empresas atendidas por ciclo semanal.
-                </p>
-                <div class="reveal delay-300 flex flex-col sm:flex-row items-center justify-center gap-6">
-                    <button onclick="route(event, 'contact')" class="px-8 py-4 bg-white text-black rounded-full font-bold hover:scale-105 transition-all shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-                        Aplicar Agora
-                    </button>
-                    <button onclick="document.getElementById('services-preview').scrollIntoView({behavior:'smooth'})" class="px-8 py-4 border border-white/20 text-white rounded-full font-bold hover:bg-white/5">
-                        Como Funciona
-                    </button>
-                </div>
-            </div>
-        </section>
+    <!-- MAIN APP CONTAINER -->
+    <main id="app" class="relative pt-32 min-h-screen">
 
-        <section id="services-preview" class="py-32 border-t border-white/5">
-            <div class="max-w-7xl mx-auto px-6">
+        <!-- VIEW: HOME -->
+        <section id="home" class="page-view active">
+            <!-- Hero -->
+            <div class="relative min-h-[80vh] flex items-center justify-center px-4 mb-20">
+                <div class="absolute inset-0 z-0 rounded-[40px] overflow-hidden mx-4 md:mx-8 border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop" class="w-full h-full object-cover opacity-30 mix-blend-overlay scale-105 animate-pulse-slow">
+                    <div class="absolute inset-0 bg-gradient-to-t from-bg via-bg/60 to-bg/30"></div>
+                </div>
+
+                <div class="relative z-10 text-center max-w-5xl px-6">
+                    <div class="reveal inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8 hover:bg-white/10 transition-colors cursor-default">
+                        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                        <span class="text-[10px] font-mono uppercase tracking-widest text-gray-300">Design Estratégico 360º</span>
+                    </div>
+                    <h1 class="reveal delay-100 text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white mb-8 leading-[0.95] font-display">
+                        A evolução da <br />
+                        <span class="text-gradient">sua marca.</span>
+                    </h1>
+                    <p class="reveal delay-200 text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
+                        Unimos criatividade visual, tecnologia proprietária e narrativa institucional para posicionar líderes e empresas na nova economia.
+                    </p>
+                    <div class="reveal delay-300 flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <button onclick="document.getElementById('method-section').scrollIntoView({behavior:'smooth'})" class="px-8 py-4 bg-white text-black rounded-full font-bold hover:scale-105 transition-transform flex items-center gap-2 shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                            Conhecer Método <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="router('cases')" class="px-8 py-4 border border-white/20 text-white rounded-full font-bold hover:bg-white/5 transition-colors">
+                            Ver Portfolio
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Logos Marquee -->
+            <div class="py-16 border-y border-white/5 bg-bgCard overflow-hidden relative">
+                <div class="animate-marquee whitespace-nowrap flex gap-20 items-center opacity-40 hover:opacity-100 transition-opacity duration-500 grayscale hover:grayscale-0">
+                    <span class="text-2xl font-bold font-display text-white">FORBES</span>
+                    <span class="text-2xl font-bold font-display text-white">UNICAMP</span>
+                    <span class="text-2xl font-bold font-display text-white">ONU</span>
+                    <span class="text-2xl font-bold font-display text-white">FIESP</span>
+                    <span class="text-2xl font-bold font-display text-white">GOOGLE</span>
+                    <span class="text-2xl font-bold font-display text-white">AMAZON</span>
+                    <span class="text-2xl font-bold font-display text-white">FORBES</span>
+                    <span class="text-2xl font-bold font-display text-white">UNICAMP</span>
+                    <span class="text-2xl font-bold font-display text-white">ONU</span>
+                    <span class="text-2xl font-bold font-display text-white">FIESP</span>
+                    <span class="text-2xl font-bold font-display text-white">GOOGLE</span>
+                </div>
+            </div>
+
+            <!-- Method Section -->
+            <div id="method-section" class="max-w-7xl mx-auto px-6 py-32">
+                <div class="text-center mb-20 reveal">
+                    <span class="text-primary text-xs font-mono uppercase tracking-widest mb-4 block">Metodologia Ágil</span>
+                    <h2 class="text-4xl md:text-5xl font-bold font-display text-white mb-6">Processo 360º</h2>
+                    <p class="text-gray-400 text-lg max-w-2xl mx-auto">Eliminamos o "achismo" para entregar resultados baseados em dados.</p>
+                </div>
+
+                <div class="grid md:grid-cols-4 gap-6">
+                    <div class="glass-card p-8 rounded-3xl relative overflow-hidden group reveal delay-100">
+                        <div class="absolute -top-10 -right-10 w-24 h-24 bg-indigo-500/20 rounded-full blur-2xl group-hover:bg-indigo-500/40 transition-all"></div>
+                        <span class="text-4xl font-black text-indigo-500/30 mb-4 block">01</span>
+                        <h3 class="text-xl font-bold text-white mb-2">Imersão</h3>
+                        <p class="text-sm text-gray-400">Diagnóstico profundo, benchmarking e definição de OKRs.</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-3xl relative overflow-hidden group reveal delay-200">
+                        <div class="absolute -top-10 -right-10 w-24 h-24 bg-purple-500/20 rounded-full blur-2xl group-hover:bg-purple-500/40 transition-all"></div>
+                        <span class="text-4xl font-black text-purple-500/30 mb-4 block">02</span>
+                        <h3 class="text-xl font-bold text-white mb-2">Estratégia</h3>
+                        <p class="text-sm text-gray-400">Brand Persona, Arquitetura de Canais e Tática.</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-3xl relative overflow-hidden group reveal delay-300">
+                        <div class="absolute -top-10 -right-10 w-24 h-24 bg-pink-500/20 rounded-full blur-2xl group-hover:bg-pink-500/40 transition-all"></div>
+                        <span class="text-4xl font-black text-pink-500/30 mb-4 block">03</span>
+                        <h3 class="text-xl font-bold text-white mb-2">Execução</h3>
+                        <p class="text-sm text-gray-400">Produção técnica high-end (Design, Code, Vídeo).</p>
+                    </div>
+                    <div class="glass-card p-8 rounded-3xl relative overflow-hidden group reveal delay-400">
+                        <div class="absolute -top-10 -right-10 w-24 h-24 bg-emerald-500/20 rounded-full blur-2xl group-hover:bg-emerald-500/40 transition-all"></div>
+                        <span class="text-4xl font-black text-emerald-500/30 mb-4 block">04</span>
+                        <h3 class="text-xl font-bold text-white mb-2">Entrega</h3>
+                        <p class="text-sm text-gray-400">Lançamento, monitoramento de dados e otimização.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process Section -->
+            <section class="max-w-7xl mx-auto px-6 py-32 border-t border-white/5">
+                <div class="text-center mb-20 reveal">
+                    <span class="text-primary text-xs font-mono uppercase tracking-widest mb-4 block">Processo Criativo</span>
+                    <h2 class="text-4xl md:text-5xl font-bold font-display text-white mb-6">O que você recebe</h2>
+                    <p class="text-gray-400 text-lg max-w-2xl mx-auto">Tangibilizamos o intangível. Cada entrega é um ativo de valor.</p>
+                </div>
                 <div class="grid md:grid-cols-3 gap-8">
-                    <div class="reveal bg-[#111] p-10 rounded-3xl border border-white/10 hover:border-indigo-500/50 transition-colors">
-                        <i data-lucide="zap" class="w-10 h-10 text-indigo-500 mb-6"></i>
-                        <h3 class="text-2xl font-bold text-white mb-4">Sprint 360º</h3>
-                        <p class="text-gray-400">Diagnóstico e plano de ação em 72 horas. Sem enrolação, foco em gargalos.</p>
+                    <div class="glass-card p-8 rounded-3xl reveal delay-100">
+                        <div class="w-12 h-12 bg-indigo-500/20 rounded-full flex items-center justify-center mb-6 text-indigo-400 font-bold font-display text-xl">1</div>
+                        <h3 class="text-xl font-bold text-white mb-3">Roadmap Estratégico</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Não entregamos apenas design. Você recebe um plano tático detalhado com cronograma, KPIs e análise de concorrência.</p>
                     </div>
-                    <div class="reveal delay-100 bg-[#111] p-10 rounded-3xl border border-white/10 hover:border-pink-500/50 transition-colors">
-                        <i data-lucide="target" class="w-10 h-10 text-pink-500 mb-6"></i>
-                        <h3 class="text-2xl font-bold text-white mb-4">Growth & Ads</h3>
-                        <p class="text-gray-400">Gestão de tráfego de alta performance. ROI ou nada.</p>
+                    <div class="glass-card p-8 rounded-3xl reveal delay-200">
+                        <div class="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mb-6 text-purple-400 font-bold font-display text-xl">2</div>
+                        <h3 class="text-xl font-bold text-white mb-3">Assets Proprietários</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Todos os arquivos abertos e editáveis. Sistemas de design escaláveis, códigos limpos e documentação técnica completa.</p>
                     </div>
-                    <div class="reveal delay-200 bg-[#111] p-10 rounded-3xl border border-white/10 hover:border-emerald-500/50 transition-colors">
-                        <i data-lucide="shield-check" class="w-10 h-10 text-emerald-500 mb-6"></i>
-                        <h3 class="text-2xl font-bold text-white mb-4">ESG & Tech</h3>
-                        <p class="text-gray-400">Adequação regulatória e modernização de stack tecnológico.</p>
+                    <div class="glass-card p-8 rounded-3xl reveal delay-300">
+                        <div class="w-12 h-12 bg-pink-500/20 rounded-full flex items-center justify-center mb-6 text-pink-400 font-bold font-display text-xl">3</div>
+                        <h3 class="text-xl font-bold text-white mb-3">Acompanhamento e Dados</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Relatórios mensais de performance com insights acionáveis. Não te abandonamos após o lançamento.</p>
                     </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- VIEW: SOLUTIONS (DYNAMIC TOGGLE) -->
+        <section id="solutions" class="page-view px-4 py-12">
+            <div class="max-w-7xl mx-auto">
+                
+                <!-- DYNAMIC HERO & TOGGLE -->
+                <div class="text-center mb-16">
+                    <!-- Toggle Switch -->
+                    <div class="inline-flex items-center p-1 bg-white/5 rounded-full border border-white/5 mb-8 backdrop-blur-sm relative">
+                        <!-- Sliding Background -->
+                        <div id="toggle-bg" class="absolute w-[calc(50%-4px)] h-[calc(100%-8px)] top-1 left-1 bg-primary rounded-full transition-all duration-300 ease-out z-0"></div>
+                        
+                        <button onclick="toggleSolutions('b2c')" id="btn-b2c" class="relative z-10 px-8 py-2.5 rounded-full text-sm font-bold transition-colors duration-300 text-white">Para Você</button>
+                        <button onclick="toggleSolutions('b2b')" id="btn-b2b" class="relative z-10 px-8 py-2.5 rounded-full text-sm font-bold transition-colors duration-300 text-gray-400 hover:text-white">Para Empresas</button>
+                    </div>
+
+                    <!-- Dynamic Texts -->
+                    <span id="sol-tag" class="text-primary font-mono uppercase text-xs tracking-widest mb-4 block animate-in fade-in zoom-in duration-300">Liderança & Carreira</span>
+                    <h1 id="sol-title" class="text-5xl md:text-7xl font-black font-display text-white mb-6 animate-in fade-in slide-in-from-bottom-4 duration-500">Para Você</h1>
+                    <p id="sol-desc" class="text-xl text-gray-400 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500 delay-100">Posicione-se como uma autoridade indiscutível no seu nicho.</p>
+                </div>
+
+                <!-- VIEW CONTAINER: B2C -->
+                <div id="view-b2c" class="transition-all duration-500 opacity-100 translate-y-0">
+                    <!-- Detalhes do Serviço -->
+                    <div class="grid md:grid-cols-2 gap-12 mb-24 items-center">
+                        <div class="space-y-8">
+                            <div class="glass-card p-8 rounded-3xl" onclick="openServiceModal('b2c', 'brand')">
+                                <i data-lucide="user" class="w-8 h-8 text-primary mb-4"></i>
+                                <h3 class="text-2xl font-bold text-white mb-2">Personal Branding 360</h3>
+                                <p class="text-gray-400">Construção de arquétipo, narrativa e identidade visual pessoal alinhada aos seus objetivos de carreira.</p>
+                            </div>
+                            <div class="glass-card p-8 rounded-3xl" onclick="openServiceModal('b2c', 'social')">
+                                <i data-lucide="linkedin" class="w-8 h-8 text-primary mb-4"></i>
+                                <h3 class="text-2xl font-bold text-white mb-2">LinkedIn Ghostwriting</h3>
+                                <p class="text-gray-400">Gestão estratégica de conteúdo. Transformamos sua experiência em artigos de liderança de pensamento.</p>
+                            </div>
+                        </div>
+                        <div class="relative h-[500px] rounded-[32px] overflow-hidden border border-white/10 group">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-transparent"></div>
+                            <div class="absolute bottom-8 left-8 text-white p-6 bg-black/40 backdrop-blur-md rounded-2xl border border-white/10 max-w-[85%]">
+                                <p class="font-display font-bold text-xl italic mb-4">"A BR360 elevou meu perfil a Top Voice em 3 meses."</p>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-white/20"></div>
+                                    <div>
+                                        <p class="text-sm font-bold text-white">Julia M.</p>
+                                        <p class="text-xs text-gray-400">CEO, Fintech Latam</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pricing Plans -->
+                    <h3 class="text-3xl font-bold text-white mb-10 text-center font-display">Planos Individuais</h3>
+                    <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                        <!-- Start -->
+                        <div class="p-8 rounded-3xl bg-[#0F0F0F] border border-white/5 hover:border-white/20 transition-all flex flex-col group">
+                            <h3 class="text-xl font-bold text-white mb-2">Start</h3>
+                            <p class="text-sm text-gray-400 mb-6 h-8">Digitalização inicial e presença.</p>
+                            <div class="text-3xl font-bold text-white mb-6">R$ 2.5k<span class="text-sm text-gray-500 font-normal">/mês</span></div>
+                            <ul class="space-y-3 text-sm text-gray-300 mb-8 flex-1">
+                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-white"></i> Otimização de Perfil</li>
+                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-white"></i> 4 Artigos/mês</li>
+                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-white"></i> Design de Capas</li>
+                            </ul>
+                            <button onclick="selectPackage('Start', 'b2c')" class="w-full py-3 rounded-xl border border-white/20 hover:bg-white hover:text-black font-bold transition-colors">Selecionar</button>
+                        </div>
+                        <!-- Authority -->
+                        <div class="p-8 rounded-3xl bg-[#161616] border border-primary/50 relative flex flex-col shadow-lg shadow-primary/10 hover:shadow-primary/20 transition-all scale-105 z-10">
+                            <span class="absolute top-4 right-4 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded">MAIS ESCOLHIDO</span>
+                            <h3 class="text-xl font-bold text-white mb-2">Authority</h3>
+                            <p class="text-sm text-gray-400 mb-6 h-8">Para quem busca palestras e imprensa.</p>
+                            <div class="text-3xl font-bold text-white mb-6">R$ 5k<span class="text-sm text-gray-500 font-normal">/mês</span></div>
+                            <ul class="space-y-3 text-sm text-gray-300 mb-8 flex-1">
+                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-primary"></i> 8 Posts + 2 Artigos</li>
+                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-primary"></i> Assessoria de Imprensa (Light)</li>
+                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-primary"></i> Mídia Kit Profissional</li>
+                            </ul>
+                            <button onclick="selectPackage('Authority', 'b2c')" class="w-full py-3 rounded-xl bg-primary hover:bg-indigo-500 text-white font-bold transition-colors">Selecionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIEW CONTAINER: B2B -->
+                <div id="view-b2b" class="hidden transition-all duration-500 opacity-0 translate-y-4">
+                    <!-- Detalhes do Serviço -->
+                    <div class="grid md:grid-cols-3 gap-6 mb-24">
+                        <div class="glass-card p-8 rounded-3xl hover:border-secondary/50 transition-colors cursor-pointer" onclick="openServiceModal('b2b', 'growth')">
+                            <i data-lucide="rocket" class="w-8 h-8 text-secondary mb-4"></i>
+                            <h3 class="text-xl font-bold text-white mb-3">Growth & Performance</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">Gestão de tráfego pago (Ads), automação de marketing e CRM. Foco total em CAC e LTV.</p>
+                        </div>
+                        <div class="glass-card p-8 rounded-3xl hover:border-secondary/50 transition-colors cursor-pointer" onclick="openServiceModal('b2b', 'reports')">
+                            <i data-lucide="pen-tool" class="w-8 h-8 text-secondary mb-4"></i>
+                            <h3 class="text-xl font-bold text-white mb-3">Rebranding Corporativo</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">Modernização da identidade visual e verbal para alinhar a marca aos novos objetivos de negócio.</p>
+                        </div>
+                        <div class="glass-card p-8 rounded-3xl hover:border-secondary/50 transition-colors cursor-pointer" onclick="openServiceModal('b2b', 'esg')">
+                            <i data-lucide="globe" class="w-8 h-8 text-secondary mb-4"></i>
+                            <h3 class="text-xl font-bold text-white mb-3">Consultoria ESG</h3>
+                            <p class="text-sm text-gray-400 leading-relaxed">Diagnóstico, implementação de práticas e produção de Relatórios de Sustentabilidade (GRI).</p>
+                        </div>
+                    </div>
+
+                    <!-- Pricing Plans -->
+                    <h3 class="text-3xl font-bold text-white mb-10 text-center font-display">Modelos de Parceria</h3>
+                    <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                        <!-- Squad -->
+                        <div class="p-8 rounded-3xl bg-[#161616] border border-secondary/50 relative flex flex-col shadow-lg shadow-secondary/10 hover:shadow-secondary/20 transition-all scale-105 z-10">
+                            <span class="absolute top-4 right-4 bg-secondary text-white text-[10px] font-bold px-2 py-1 rounded">RECOMENDADO</span>
+                            <h3 class="text-xl font-bold text-white mb-2">Squad Alocado</h3>
+                            <p class="text-sm text-gray-400 mb-6 h-8">Uma equipe completa de marketing dentro da sua empresa.</p>
+                            <div class="text-3xl font-bold text-white mb-6">R$ 12k<span class="text-sm text-gray-500 font-normal">/mês</span></div>
+                            <ul class="space-y-3 text-sm text-gray-300 mb-8 flex-1">
+                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-secondary"></i> Designer, Copywriter e Gestor de Tráfego</li>
+                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-secondary"></i> Reuniões Semanais de Sprint</li>
+                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-secondary"></i> Dashboard em Tempo Real</li>
+                            </ul>
+                            <button onclick="selectPackage('Squad Alocado', 'b2b')" class="w-full py-3 rounded-xl bg-secondary hover:bg-fuchsia-600 text-white font-bold transition-colors">Agendar Reunião</button>
+                        </div>
+                        <!-- Enterprise -->
+                        <div class="p-8 rounded-3xl bg-[#0F0F0F] border border-white/5 hover:border-white/20 transition-all flex flex-col group">
+                            <h3 class="text-xl font-bold text-white mb-2">Enterprise</h3>
+                            <p class="text-sm text-gray-400 mb-6 h-8">Projetos pontuais de alta complexidade.</p>
+                            <div class="text-3xl font-bold text-white mb-6">Sob Consulta</div>
+                            <ul class="space-y-3 text-sm text-gray-300 mb-8 flex-1">
+                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-white"></i> Rebranding Completo</li>
+                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-white"></i> Desenvolvimento de App/Web</li>
+                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-white"></i> Relatório ESG Anual</li>
+                            </ul>
+                            <button onclick="selectPackage('Enterprise', 'b2b')" class="w-full py-3 rounded-xl border border-white/20 hover:bg-white hover:text-black font-bold transition-colors">Falar com Consultor</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- VIEW: CASES -->
+        <section id="cases" class="page-view px-4 py-12">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h1 class="text-5xl md:text-7xl font-black font-display text-white mb-6">Portfólio</h1>
+                    <p class="text-xl text-gray-400">Histórias de transformação real.</p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8" id="cases-grid">
+                    <!-- JS Injected -->
                 </div>
             </div>
         </section>
-    </main>
 
-    <main id="solutions" class="page-section pt-32 pb-20">
-        <div class="max-w-7xl mx-auto px-6">
-            <h1 class="text-5xl md:text-7xl font-black font-display mb-12">Soluções Dedicadas</h1>
-            <div class="grid md:grid-cols-2 gap-12">
-                <div class="p-10 rounded-[32px] bg-[#0F0F0F] border border-white/10">
-                    <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-4 block">Personal</span>
-                    <h2 class="text-3xl font-bold text-white mb-6">Líderes & Experts</h2>
-                    <ul class="space-y-4 text-gray-400 mb-8">
-                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-indigo-500"></i> Personal Branding</li>
-                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-indigo-500"></i> Posicionamento LinkedIn</li>
-                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-indigo-500"></i> Mentoria de Carreira</li>
-                    </ul>
-                    <button onclick="route(event, 'contact')" class="w-full py-4 rounded-xl border border-white/20 hover:bg-white hover:text-black font-bold transition-colors">Agendar Call</button>
-                </div>
-                <div class="p-10 rounded-[32px] bg-[#0F0F0F] border border-white/10">
-                    <span class="text-xs font-bold text-pink-400 uppercase tracking-widest mb-4 block">Corporate</span>
-                    <h2 class="text-3xl font-bold text-white mb-6">Scale-ups & Enterprise</h2>
-                    <ul class="space-y-4 text-gray-400 mb-8">
-                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-pink-500"></i> Full-Stack Marketing</li>
-                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-pink-500"></i> Consultoria ESG</li>
-                        <li class="flex gap-3"><i data-lucide="check" class="w-5 h-5 text-pink-500"></i> Rebranding</li>
-                    </ul>
-                    <button onclick="route(event, 'contact')" class="w-full py-4 rounded-xl bg-white text-black font-bold hover:bg-gray-200 transition-colors">Solicitar Proposta</button>
+        <!-- VIEW: BLOG -->
+        <section id="blog" class="page-view px-4 py-12">
+            <div class="max-w-7xl mx-auto">
+                <h1 class="text-5xl font-black font-display text-white mb-12">Insights</h1>
+                <div class="grid md:grid-cols-3 gap-8" id="blog-grid">
+                    <!-- JS Injected -->
                 </div>
             </div>
-        </div>
-    </main>
+        </section>
 
-    <main id="cases" class="page-section pt-32 pb-20">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <h1 class="text-5xl font-black font-display mb-6">Portfólio Secreto</h1>
-            <p class="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">Devido a acordos de confidencialidade (NDA), apresentamos apenas dados anonimizados de impacto.</p>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-[#111] p-8 rounded-3xl border border-white/10">
-                    <div class="text-4xl font-bold text-white mb-2">+240%</div>
-                    <p class="text-gray-500 text-sm">ROAS em Fintech (3 meses)</p>
+        <!-- VIEW: CONTACT -->
+        <section id="contact" class="page-view px-4 py-12 bg-[#080808]">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <h1 class="text-5xl font-black font-display text-white mb-4">Inicie o Protocolo</h1>
+                    <p class="text-gray-400">Nosso time técnico analisará sua viabilidade.</p>
                 </div>
-                <div class="bg-[#111] p-8 rounded-3xl border border-white/10">
-                    <div class="text-4xl font-bold text-white mb-2">R$ 12M</div>
-                    <p class="text-gray-500 text-sm">Pipeline gerado B2B</p>
-                </div>
-                <div class="bg-[#111] p-8 rounded-3xl border border-white/10">
-                    <div class="text-4xl font-bold text-white mb-2">Top 1</div>
-                    <p class="text-gray-500 text-sm">Google Ranking (Logística)</p>
-                </div>
+
+                <form id="main-contact-form" class="glass-card p-10 rounded-[32px] space-y-6 mb-20 shadow-2xl" onsubmit="handleFormSubmit(event)">
+                    <!-- Hidden Fields for Tracking -->
+                    <input type="hidden" id="form-segment" name="segment" value="B2C">
+                    <input type="hidden" id="form-package" name="package" value="">
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Nome Completo</label>
+                            <input type="text" required class="w-full bg-black border border-white/10 rounded-xl px-4 py-4 text-white focus:border-primary focus:outline-none transition-colors" placeholder="Seu nome">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Empresa / Cargo</label>
+                            <input type="text" class="w-full bg-black border border-white/10 rounded-xl px-4 py-4 text-white focus:border-primary focus:outline-none transition-colors" placeholder="Sua empresa">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Email Corporativo</label>
+                        <input type="email" required class="w-full bg-black border border-white/10 rounded-xl px-4 py-4 text-white focus:border-primary focus:outline-none transition-colors" placeholder="voce@empresa.com">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Interesse Principal</label>
+                        <select id="form-interest" class="w-full bg-black border border-white/10 rounded-xl px-4 py-4 text-white focus:border-primary focus:outline-none transition-colors">
+                            <option value="">Selecione...</option>
+                            <option value="Consultoria Estratégica">Consultoria Estratégica</option>
+                            <option value="Rebranding">Rebranding</option>
+                            <option value="Tecnologia / Web">Tecnologia / Web</option>
+                            <option value="ESG">ESG</option>
+                            <option value="Pacote Start">Pacote Start</option>
+                            <option value="Pacote Authority">Pacote Authority</option>
+                            <option value="Squad Alocado">Squad Alocado</option>
+                            <option value="Pacote Enterprise">Pacote Enterprise</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Detalhes do Desafio</label>
+                        <textarea rows="4" class="w-full bg-black border border-white/10 rounded-xl px-4 py-4 text-white focus:border-primary focus:outline-none transition-colors" placeholder="Breve descrição..."></textarea>
+                    </div>
+                    <button class="w-full py-5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl hover:opacity-90 transition-opacity shadow-lg text-lg">
+                        Enviar Aplicação
+                    </button>
+                    <p class="text-center text-xs text-gray-600 flex items-center justify-center gap-2">
+                        <i data-lucide="lock" class="w-3 h-3"></i> Dados criptografados e seguros.
+                    </p>
+                </form>
             </div>
-        </div>
+        </section>
+
     </main>
 
-    <main id="contact" class="page-section pt-32 pb-20 bg-[#080808]">
-        <div class="max-w-4xl mx-auto px-6">
-            <h1 class="text-5xl font-black font-display mb-4 text-center">Aplicação para Vaga</h1>
-            <p class="text-gray-400 text-center mb-12 max-w-xl mx-auto">Devido à alta demanda, analisamos perfis para garantir o fit com nossa metodologia.</p>
-            
-            <form action="https://formsubmit.co/SEU_EMAIL_AQUI" method="POST" class="bg-[#111] p-8 md:p-12 rounded-[32px] border border-white/10 shadow-2xl">
-                <input type="text" name="_honey" style="display:none">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_next" value="https://br360.github.io/thanks">
-
-                <div class="grid md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Nome</label>
-                        <input type="text" name="name" required class="w-full bg-black border border-white/10 rounded-xl px-4 py-4 text-white focus:border-indigo-500 focus:outline-none transition-colors">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Whatsapp</label>
-                        <input type="tel" name="phone" required class="w-full bg-black border border-white/10 rounded-xl px-4 py-4 text-white focus:border-indigo-500 focus:outline-none transition-colors">
-                    </div>
-                </div>
-                <div class="mb-6">
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Email Corporativo</label>
-                    <input type="email" name="email" required class="w-full bg-black border border-white/10 rounded-xl px-4 py-4 text-white focus:border-indigo-500 focus:outline-none transition-colors">
-                </div>
-                <div class="mb-8">
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Desafio Principal</label>
-                    <textarea name="message" rows="3" class="w-full bg-black border border-white/10 rounded-xl px-4 py-4 text-white focus:border-indigo-500 focus:outline-none transition-colors"></textarea>
-                </div>
-                <button type="submit" class="w-full py-5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl hover:opacity-90 transition-opacity shadow-lg">
-                    Enviar Aplicação
-                </button>
-                <p class="text-center text-xs text-gray-600 mt-4"><i data-lucide="lock" class="w-3 h-3 inline"></i> Seus dados estão seguros.</p>
-            </form>
-        </div>
-    </main>
-
-    <footer class="bg-black border-t border-white/10 pt-16 pb-8 px-6 mt-auto">
+    <!-- Footer -->
+    <footer class="bg-black border-t border-white/10 pt-20 pb-10 px-6">
         <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-12">
-                <div>
-                    <span class="text-2xl font-black font-display text-white">BR360</span>
-                    <p class="text-xs text-gray-500 mt-2 max-w-xs">Inteligência estratégica para negócios que não aceitam o mediano.</p>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-1">
+                    <a href="#" onclick="router('home')" class="flex flex-col leading-none group cursor-pointer select-none mb-6">
+                        <span class="text-2xl font-black font-display tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">BR360</span>
+                    </a>
+                    <p class="text-sm text-gray-500 leading-relaxed mb-6">Consultoria estratégica full-stack. Unimos criatividade, tecnologia e dados.</p>
                 </div>
-                <div class="flex gap-6 text-sm font-medium text-gray-400">
-                    <button onclick="openModal('modal-privacy')" class="hover:text-white transition-colors">Privacidade</button>
-                    <button onclick="openModal('modal-terms')" class="hover:text-white transition-colors">Termos de Uso</button>
-                    <a href="https://linkedin.com" target="_blank" class="hover:text-white transition-colors">LinkedIn</a>
+                <div>
+                    <h4 class="text-white font-bold mb-6 font-display">Soluções</h4>
+                    <ul class="space-y-3 text-sm text-gray-500">
+                        <li><a href="#" onclick="router('solutions'); toggleSolutions('b2b')" class="hover:text-white transition-colors">Para Empresas</a></li>
+                        <li><a href="#" onclick="router('solutions'); toggleSolutions('b2c')" class="hover:text-white transition-colors">Para Você</a></li>
+                    </ul>
                 </div>
             </div>
-            <div class="border-t border-white/10 pt-8 text-xs text-gray-600 flex justify-between">
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-600 font-mono uppercase tracking-widest">
                 <p>&copy; 2025 BR360 Intelligence.</p>
-                <p>Campinas, SP</p>
             </div>
         </div>
     </footer>
 
-    <a href="https://wa.me/5519999999999" target="_blank" class="fixed bottom-6 right-6 z-40 w-16 h-16 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300 group">
-        <i data-lucide="message-circle" class="w-8 h-8"></i>
-        <span class="absolute right-full mr-4 bg-white text-black px-3 py-1 rounded-lg text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Falar Agora</span>
+    <!-- SERVICE DETAIL MODAL -->
+    <dialog id="service-modal" class="bg-[#111] text-white p-0 rounded-[32px] max-w-2xl w-full border border-white/10 shadow-2xl backdrop:bg-black/95 m-auto overflow-hidden">
+        <div class="relative">
+            <button onclick="document.getElementById('service-modal').close()" class="absolute top-6 right-6 p-2 bg-white/5 rounded-full hover:bg-white/10 z-20"><i data-lucide="x" class="w-5 h-5"></i></button>
+            
+            <div class="p-8 md:p-12">
+                <div id="modal-icon" class="w-14 h-14 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-400 mb-6"></div>
+                <h3 id="modal-title" class="text-3xl font-bold font-display mb-2"></h3>
+                <p id="modal-desc" class="text-gray-400 mb-8 text-lg leading-relaxed"></p>
+                
+                <div class="bg-white/5 rounded-2xl p-6 border border-white/5 mb-8">
+                    <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">Entregáveis & Tecnologias</h4>
+                    <div id="modal-tags" class="flex flex-wrap gap-2">
+                        <!-- JS Injected -->
+                    </div>
+                </div>
+
+                <button id="modal-cta" class="w-full py-4 bg-white text-black font-bold rounded-xl hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
+                    Solicitar Orçamento <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- FAB -->
+    <a href="https://wa.me/5519999999999" target="_blank" class="fixed bottom-6 right-6 z-40 w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300 group">
+        <i data-lucide="message-circle" class="w-7 h-7"></i>
     </a>
 
-    <div id="cookie-banner" class="fixed bottom-4 inset-x-4 z-50 p-6 bg-[#111] border border-white/10 rounded-2xl shadow-2xl flex flex-col md:flex-row items-center justify-between gap-4 transform translate-y-full opacity-0 transition-all duration-500 hidden">
-        <p class="text-sm text-gray-400">Utilizamos cookies para otimizar sua experiência e métricas de tráfego. Ao continuar, você concorda com nossa <button onclick="openModal('modal-privacy')" class="text-indigo-400 underline">Política</button>.</p>
-        <div class="flex gap-3 shrink-0">
-            <button id="cookie-decline" class="px-4 py-2 rounded-lg text-sm text-gray-400 hover:text-white transition-colors">Recusar</button>
-            <button id="cookie-accept" class="px-6 py-2 rounded-lg bg-indigo-600 text-white text-sm font-bold hover:bg-indigo-500 transition-colors">Aceitar</button>
-        </div>
-    </div>
-
-    <dialog id="modal-privacy" class="bg-[#111] text-white p-0 rounded-2xl max-w-2xl w-full border border-white/10 shadow-2xl backdrop:bg-black/95">
-        <div class="p-6 border-b border-white/10 flex justify-between items-center">
-            <h3 class="text-xl font-bold font-display">Política de Privacidade</h3>
-            <button onclick="closeModal('modal-privacy')" class="p-2 hover:bg-white/10 rounded-full"><i data-lucide="x" class="w-5 h-5"></i></button>
-        </div>
-        <div class="p-8 text-gray-400 text-sm leading-relaxed max-h-[60vh] overflow-y-auto">
-            <h4 class="text-white font-bold mb-2">1. Coleta de Dados</h4>
-            <p class="mb-4">Coletamos informações estritamente necessárias para prestação de consultoria (Nome, Email, Telefone Corporativo). Não vendemos dados.</p>
-            <h4 class="text-white font-bold mb-2">2. Finalidade</h4>
-            <p class="mb-4">Os dados são usados para contato comercial e envio de insights (Newsletter), caso autorizado.</p>
-            <h4 class="text-white font-bold mb-2">3. Seus Direitos</h4>
-            <p>Você pode solicitar a exclusão dos seus dados a qualquer momento via dpo@br360.com.</p>
-        </div>
-        <div class="p-6 border-t border-white/10 text-right">
-            <button onclick="closeModal('modal-privacy')" class="px-6 py-2 bg-white text-black rounded-lg font-bold text-sm">Entendi</button>
-        </div>
-    </dialog>
-
-    <dialog id="modal-terms" class="bg-[#111] text-white p-0 rounded-2xl max-w-2xl w-full border border-white/10 shadow-2xl backdrop:bg-black/95">
-        <div class="p-6 border-b border-white/10 flex justify-between items-center">
-            <h3 class="text-xl font-bold font-display">Termos de Uso</h3>
-            <button onclick="closeModal('modal-terms')" class="p-2 hover:bg-white/10 rounded-full"><i data-lucide="x" class="w-5 h-5"></i></button>
-        </div>
-        <div class="p-8 text-gray-400 text-sm leading-relaxed max-h-[60vh] overflow-y-auto">
-            <p class="mb-4">Ao utilizar este site, você concorda que o conteúdo (textos, design, metodologia) é propriedade intelectual da BR360 Intelligence.</p>
-            <p>A aplicação para vagas não garante atendimento, sujeito à aprovação de fit cultural e disponibilidade de agenda.</p>
-        </div>
-        <div class="p-6 border-t border-white/10 text-right">
-            <button onclick="closeModal('modal-terms')" class="px-6 py-2 bg-white text-black rounded-lg font-bold text-sm">Aceitar</button>
-        </div>
-    </dialog>
-
+    <!-- Application Logic -->
     <script>
-        lucide.createIcons();
+        // --- 1. DATA STORE (Content) ---
+        const DB = {
+            services: {
+                b2c: [
+                    { id: 'graphic', title: "Design Gráfico", desc: "Identidade visual e materiais de apoio.", icon: "pen-tool", tags: ["Logo", "Brandbook", "Assets Sociais", "Apresentações"] },
+                    { id: 'brand', title: "Branding Pessoal", desc: "Identidade verbal e posicionamento.", icon: "user", tags: ["Arquétipos", "Tom de Voz", "Narrativa", "Sessão Fotográfica"] },
+                    { id: 'social', title: "Gestão de Canais", desc: "LinkedIn e Social Media pessoal.", icon: "smartphone", tags: ["Calendário Editorial", "Community Mgmt", "Analytics", "Copywriting"] },
+                    { id: 'career', title: "Consultoria de Carreira", desc: "Planejamento estratégico de imagem.", icon: "briefcase", tags: ["Mentoria 1:1", "Revisão CV", "Plano de Carreira", "Networking"] },
+                    { id: 'content', title: "Planejamento Editorial", desc: "Estratégia de conteúdo e posts.", icon: "edit-3", tags: ["Ghostwriting", "SEO Pessoal", "Artigos", "Newsletters"] },
+                    { id: 'academic', title: "Consultoria Acadêmica", desc: "Suporte para pesquisadores In University.", icon: "book-open", tags: ["Formatação ABNT", "Revisão Textual", "Slides de Defesa", "Pôster"] }
+                ],
+                b2b: [
+                    { id: 'reports', title: "Relatórios Institucionais", desc: "Design de dados e relatórios anuais.", icon: "file-text", tags: ["Data Viz", "Relatório de Sustentabilidade", "PDF Interativo", "Infográficos"] },
+                    { id: 'dev', title: "UX/UI & Front-End", desc: "React, HTML, CSS, JS e Design Systems.", icon: "code", tags: ["React", "Tailwind", "Next.js", "Design System", "Acessibilidade"] },
+                    { id: 'av', title: "Audiovisual 360", desc: "Vídeo, Motion, Foto e Cobertura.", icon: "video", tags: ["Motion Graphics", "Captação 4K", "Drone", "Edição Premiere/After"] },
+                    { id: 'growth', title: "Growth & Tráfego", desc: "Ads, SEO e Performance.", icon: "trending-up", tags: ["Google Ads", "Meta Ads", "SEO Técnico", "CRO"] },
+                    { id: 'esg', title: "Consultoria ESG", desc: "Sustentabilidade e ODS.", icon: "leaf", tags: ["Matriz de Materialidade", "ODS ONU", "GRI Standards", "Consultoria Técnica"] },
+                    { id: 'pr', title: "Assessoria de Imprensa", desc: "PR e Gestão de Crise.", icon: "mic", tags: ["Press Release", "Media Training", "Clipagem", "Gestão de Crise"] }
+                ]
+            },
+            cases: [
+                { client: "ONU - Pacto Global", tag: "Global", title: "Campanha & PMO", img: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop" },
+                { client: "Inova Unicamp", tag: "Institucional", title: "Deep Tech Comms", img: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop" },
+                { client: "Fintech Revolution", tag: "B2B", title: "Product Design", img: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2032&auto=format&fit=crop" },
+                { client: "Logística 4.0", tag: "Tech", title: "Rebranding", img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop" }
+            ],
+            posts: [
+                { title: "O Fim dos Cookies: A Era dos Dados Proprietários", tag: "Tech", date: "Dez 2024" },
+                { title: "ESG como Motor de Lucro, não Custo", tag: "Strategy", date: "Nov 2024" },
+                { title: "Design Atômico em Escala", tag: "Design", date: "Out 2024" }
+            ]
+        };
 
-        // 1. ROUTING SYSTEM
-        const validRoutes = ['home', 'solutions', 'cases', 'contact', 'esg'];
+        // --- 2. RENDER ENGINE ---
+        function renderCases() {
+            const container = document.getElementById('cases-grid');
+            if (!container) return; 
+            
+            container.innerHTML = DB.cases.map(c => `
+                <div class="group relative h-[450px] rounded-[32px] overflow-hidden bg-[#111] border border-white/10 cursor-pointer" onclick="router('contact')">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10"></div>
+                    <img src="${c.img}" loading="lazy" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700">
+                    <div class="absolute bottom-0 left-0 p-10 z-20 w-full">
+                        <span class="text-xs font-bold bg-white/10 backdrop-blur border border-white/10 px-3 py-1 rounded-full mb-4 inline-block text-white">${c.tag}</span>
+                        <h3 class="text-3xl font-bold font-display text-white mb-2">${c.client}</h3>
+                        <p class="text-gray-300 flex items-center justify-between">
+                            ${c.title} 
+                            <span class="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500"><i data-lucide="arrow-up-right" class="w-4 h-4"></i></span>
+                        </p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderBlog() {
+            const container = document.getElementById('blog-grid');
+            if (!container) return; 
+
+            container.innerHTML = DB.posts.map(p => `
+                <div class="bg-bgCard border border-white/10 p-8 rounded-3xl hover:border-white/30 transition-all cursor-pointer group flex flex-col">
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="text-[10px] font-mono uppercase tracking-widest text-gray-500 border border-white/10 px-2 py-1 rounded">${p.tag}</span>
+                        <span class="text-xs text-gray-500">${p.date}</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4 group-hover:text-primary transition-colors">${p.title}</h3>
+                    <div class="mt-auto pt-6 border-t border-white/5 flex items-center text-sm font-bold text-gray-400 group-hover:text-white transition-colors">
+                        Ler Artigo <i data-lucide="arrow-right" class="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform"></i>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // --- 3. LOGIC & INTERACTION ---
         
-        function route(event, pageId, isMobile = false) {
-            if (event) event.preventDefault();
-            if (!validRoutes.includes(pageId)) return;
+        let currentSegment = 'b2c';
 
-            // View Transition
-            document.querySelectorAll('.page-section').forEach(section => {
-                section.classList.remove('active');
-                setTimeout(() => { if(!section.classList.contains('active')) section.style.display = 'none'; }, 300);
+        function toggleSolutions(type) {
+            currentSegment = type;
+            
+            // DOM Elements
+            const btnB2C = document.getElementById('btn-b2c');
+            const btnB2B = document.getElementById('btn-b2b');
+            const toggleBg = document.getElementById('toggle-bg');
+            
+            const viewB2C = document.getElementById('view-b2c');
+            const viewB2B = document.getElementById('view-b2b');
+            
+            // Texts
+            const title = document.getElementById('sol-title');
+            const desc = document.getElementById('sol-desc');
+            const tag = document.getElementById('sol-tag');
+
+            // --- STATE UPDATE ---
+            if(type === 'b2c') {
+                // UI Toggle
+                toggleBg.style.left = '4px';
+                toggleBg.style.backgroundColor = '#6366f1'; // Indigo (Primary)
+                btnB2C.classList.replace('text-gray-400', 'text-white');
+                btnB2C.classList.remove('hover:text-white');
+                btnB2B.classList.replace('text-white', 'text-gray-400');
+                btnB2B.classList.add('hover:text-white');
+                
+                // Content Swap
+                viewB2B.classList.add('opacity-0', 'translate-y-4');
+                setTimeout(() => {
+                    viewB2B.classList.add('hidden');
+                    viewB2C.classList.remove('hidden');
+                    // Force Reflow
+                    void viewB2C.offsetWidth;
+                    viewB2C.classList.remove('opacity-0', 'translate-y-0'); 
+                }, 300);
+                
+                // Text Update
+                tag.innerText = "Liderança & Carreira";
+                tag.className = "text-primary font-mono uppercase text-xs tracking-widest mb-4 block animate-in fade-in zoom-in duration-300";
+                title.innerText = "Para Você";
+                desc.innerText = "Posicione-se como uma autoridade indiscutível no seu nicho.";
+
+            } else {
+                // UI Toggle
+                toggleBg.style.left = 'calc(100% - 4px)';
+                toggleBg.style.transform = 'translateX(-100%)';
+                toggleBg.style.backgroundColor = '#d946ef'; // Fuchsia (Secondary)
+                
+                btnB2B.classList.replace('text-gray-400', 'text-white');
+                btnB2B.classList.remove('hover:text-white');
+                btnB2C.classList.replace('text-white', 'text-gray-400');
+                btnB2C.classList.add('hover:text-white');
+
+                // Content Swap
+                viewB2C.classList.add('opacity-0', 'translate-y-0'); // Reset pos for exit? No, keep logic simple
+                viewB2C.classList.add('opacity-0');
+                setTimeout(() => {
+                    viewB2C.classList.add('hidden');
+                    viewB2B.classList.remove('hidden');
+                    void viewB2B.offsetWidth;
+                    viewB2B.classList.remove('opacity-0', 'translate-y-4');
+                }, 300);
+
+                // Text Update
+                tag.innerText = "Scale-ups & Corporativo";
+                tag.className = "text-secondary font-mono uppercase text-xs tracking-widest mb-4 block animate-in fade-in zoom-in duration-300";
+                title.innerText = "Para Empresas";
+                desc.innerText = "Consultoria Full-Stack para escalar operações e valuation.";
+            }
+            
+            // Update hidden field for segment tracking
+            document.getElementById('form-segment').value = type.toUpperCase();
+        }
+
+        // Handle Service Modal
+        function openServiceModal(type, serviceId) {
+            const service = DB.services[type].find(s => s.id === serviceId);
+            if(!service) return;
+
+            const modal = document.getElementById('service-modal');
+            
+            document.getElementById('modal-title').textContent = service.title;
+            document.getElementById('modal-desc').textContent = service.desc;
+            document.getElementById('modal-icon').innerHTML = `<i data-lucide="${service.icon}" class="w-8 h-8"></i>`;
+            
+            // Populate Tags
+            const tagsContainer = document.getElementById('modal-tags');
+            tagsContainer.innerHTML = service.tags.map(t => `<span class="px-3 py-1 bg-white/10 rounded-lg text-sm text-gray-300 border border-white/5">${t}</span>`).join('');
+            
+            // Configure CTA
+            document.getElementById('modal-cta').onclick = () => {
+                modal.close();
+                selectPackage(service.title, type); // Treat service selection as package interest
+            };
+
+            lucide.createIcons();
+            modal.showModal();
+        }
+
+        // Handle Package Selection -> Form Prefill
+        function selectPackage(packageName, type) {
+            router('contact');
+            
+            // 1. Set Segment if different
+            if(type !== currentSegment) toggleSolutions(type);
+            document.getElementById('form-segment').value = type.toUpperCase();
+            
+            // 2. Set Hidden Package Field
+            document.getElementById('form-package').value = packageName;
+
+            // 3. Set Select Dropdown
+            const select = document.getElementById('form-interest');
+            
+            // Try to find exact match or partial match
+            let found = false;
+            for(let i=0; i<select.options.length; i++) {
+                if(select.options[i].value.includes(packageName)) {
+                    select.selectedIndex = i;
+                    found = true;
+                    break;
+                }
+            }
+            // Fallback for "Outro" or generic if not found
+            if(!found) select.value = "Outro";
+
+            // Scroll to form
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Form Handler
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const segment = document.getElementById('form-segment').value;
+            const pkg = document.getElementById('form-package').value;
+            const interest = document.getElementById('form-interest').value;
+            
+            console.log(`Lead Generated: [${segment}] Interest: ${interest} (Pkg: ${pkg})`);
+            
+            alert(`Recebemos sua aplicação para o perfil ${segment}. \nInteresse: ${interest} ${pkg ? '- ' + pkg : ''}. \nEntraremos em contato em breve.`);
+        }
+
+        // Router
+        function router(pageId) {
+            document.querySelectorAll('.page-view').forEach(el => {
+                el.classList.remove('active');
+                setTimeout(() => { if(!el.classList.contains('active')) el.style.display = 'none'; }, 400);
             });
 
             const target = document.getElementById(pageId);
-            if (target) {
+            if(target) {
                 target.style.display = 'block';
-                requestAnimationFrame(() => {
-                    target.classList.add('active');
-                    window.scrollTo(0,0);
-                });
+                void target.offsetWidth; 
+                target.classList.add('active');
+                window.scrollTo(0, 0);
             }
 
-            // Update Nav State
+            // Nav Active State
             document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('text-white', 'bg-white/10');
-                btn.classList.add('text-gray-400');
                 if(btn.dataset.target === pageId) {
                     btn.classList.add('text-white', 'bg-white/10');
                     btn.classList.remove('text-gray-400');
+                } else {
+                    btn.classList.remove('text-white', 'bg-white/10');
+                    btn.classList.add('text-gray-400');
                 }
             });
-
-            if (isMobile) toggleMenu();
         }
 
-        // 2. SCARCITY ENGINE (Contagem Regressiva Semanal)
-        function initCountdown() {
+        function mobileNav(pageId) {
+            router(pageId);
+            document.getElementById('mobile-menu').classList.remove('translate-x-0');
+            document.getElementById('mobile-menu').classList.add('translate-x-full');
+        }
+
+        // Scarcity Timer
+        function initTimer() {
             const timerEl = document.getElementById('countdown-timer');
             const slotsEl = document.getElementById('slots-count');
             
-            // Logic: Reset every Sunday midnight
             const now = new Date();
-            const nextReset = new Date();
-            nextReset.setDate(now.getDate() + (7 - now.getDay()) % 7); // Next Sunday
-            nextReset.setHours(23, 59, 59, 999);
-            
-            // Slots Simulation based on day of week (Monday=10, Sunday=1)
-            const dayIndex = now.getDay(); 
-            const slotsMap = [1, 10, 8, 6, 4, 3, 2]; // Sun, Mon, Tue...
-            slotsEl.innerText = String(slotsMap[dayIndex]).padStart(2, '0');
+            const nextSunday = new Date();
+            nextSunday.setDate(now.getDate() + (7 - now.getDay()) % 7);
+            nextSunday.setHours(23, 59, 59, 999);
+
+            const slotsMap = [2, 10, 9, 7, 5, 4, 3];
+            slotsEl.innerText = String(slotsMap[now.getDay()]).padStart(2, '0');
 
             setInterval(() => {
-                const diff = nextReset - new Date();
+                const diff = nextSunday - new Date();
                 const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                 const s = Math.floor((diff % (1000 * 60)) / 1000);
@@ -378,43 +812,24 @@
             }, 1000);
         }
 
-        // 3. UI HELPERS
-        function toggleMenu() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        }
-        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMenu);
-        document.getElementById('close-menu-btn').addEventListener('click', toggleMenu);
+        // --- 4. INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCases();
+            renderBlog();
+            lucide.createIcons();
+            initTimer();
 
-        window.openModal = (id) => { const m = document.getElementById(id); if(m) { m.showModal(); document.body.style.overflow='hidden'; } };
-        window.closeModal = (id) => { const m = document.getElementById(id); if(m) { m.close(); document.body.style.overflow=''; } };
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-        // 4. COOKIE LOGIC
-        setTimeout(() => {
-            if(!localStorage.getItem('br360_consent')) {
-                const banner = document.getElementById('cookie-banner');
-                banner.classList.remove('hidden');
-                requestAnimationFrame(() => {
-                    banner.classList.remove('translate-y-full', 'opacity-0');
-                });
-            }
-        }, 1500);
+            const mMenu = document.getElementById('mobile-menu');
+            document.getElementById('menu-btn').onclick = () => { mMenu.classList.remove('translate-x-full'); mMenu.classList.add('translate-x-0'); };
+            document.getElementById('close-menu').onclick = () => { mMenu.classList.remove('translate-x-0'); mMenu.classList.add('translate-x-full'); };
 
-        document.getElementById('cookie-accept').addEventListener('click', () => {
-            localStorage.setItem('br360_consent', 'true');
-            document.getElementById('cookie-banner').classList.add('opacity-0');
-            setTimeout(() => document.getElementById('cookie-banner').classList.add('hidden'), 500);
+            router('home');
         });
-
-        // 5. OBSERVER (Reveal Animations)
-        const obs = new IntersectionObserver((entries) => {
-            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-        // INIT
-        initCountdown();
-        route(null, 'home');
-
     </script>
 </body>
 </html>
