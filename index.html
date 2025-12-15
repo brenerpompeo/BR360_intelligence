@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BR360 Intelligence | Estratégia, Tech & ESG</title>
-    <meta name="description" content="Consultoria estratégica full-stack. Transformamos complexidade em narrativa de impacto e tecnologia proprietária.">
+    <title>BR360º Intelligence | Estratégia de Marca</title>
+    <meta name="description" content="Consultoria estratégica de marca. Clareza e posicionamento em semanas, não meses.">
     <meta name="theme-color" content="#050505">
 
-    <!-- Preconnect -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Sora:wght@400;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Sora:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -34,16 +32,6 @@
                     },
                     backgroundImage: {
                         'noise': "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
-                    },
-                    animation: {
-                        'marquee': 'marquee 40s linear infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
-                    keyframes: {
-                        marquee: {
-                            '0%': { transform: 'translateX(0)' },
-                            '100%': { transform: 'translateX(-50%)' },
-                        }
                     }
                 }
             }
@@ -51,82 +39,120 @@
     </script>
 
     <style>
-        /* Base Styles */
+        /* Core Styles */
         body { background-color: #050505; color: #e5e5e5; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        body.menu-open { overflow: hidden; }
         
-        /* Glassmorphism */
+        /* Glassmorphism System */
         .glass { background: rgba(10, 10, 10, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
         .glass-card { background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease; }
         .glass-card:hover { border-color: rgba(99, 102, 241, 0.3); background: rgba(30, 30, 30, 0.8); }
 
-        /* Animations */
+        /* Animation Utilities */
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform, opacity; }
         .reveal.active { opacity: 1; transform: translateY(0); }
         
-        /* Page Transitions */
+        /* View Transition Logic */
         .page-view { display: none; opacity: 0; transition: opacity 0.4s ease; }
         .page-view.active { display: block; opacity: 1; animation: fadeIn 0.5s ease-out forwards; }
-        
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Utilities */
+        /* Typography & Scroll */
         .text-gradient { background: linear-gradient(to right, #818cf8, #d946ef, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #050505; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb { background: #555; }
         
-        /* Dialog */
-        dialog::backdrop { background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px); }
-        dialog[open] { animation: zoomIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        /* Accordion Details */
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
 
-        /* Custom Toggle Switch */
-        .toggle-checkbox:checked { right: 0; border-color: #6366f1; }
-        .toggle-checkbox:checked + .toggle-label { background-color: #6366f1; }
-        
-        .transition-height { transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out; }
+        /* Custom Checkbox Toggle */
+        .toggle-checkbox:checked { right: 0; border-color: #68D391; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #68D391; }
     </style>
     
-    <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body class="font-body selection:bg-primary selection:text-white">
 
     <div class="fixed inset-0 bg-noise opacity-[0.03] pointer-events-none z-[0]"></div>
 
-    <!-- Scarcity Bar -->
-    <div id="scarcity-bar" class="fixed top-0 w-full z-[60] bg-gradient-to-r from-indigo-900/90 to-purple-900/90 backdrop-blur-sm text-white text-[10px] sm:text-xs font-bold py-2 px-4 flex justify-center items-center gap-4 border-b border-white/10 shadow-lg font-mono tracking-wide">
-        <div class="flex items-center gap-2">
+    <!-- Scarcity Protocol (Dismissible) -->
+    <div id="scarcity-bar" class="fixed top-0 w-full z-[60] bg-gradient-to-r from-indigo-900/95 to-purple-900/95 backdrop-blur-sm text-white text-[10px] sm:text-xs font-bold py-2 px-4 flex justify-between sm:justify-center items-center gap-4 border-b border-white/10 shadow-lg font-mono tracking-wide transition-transform duration-300">
+        <div class="flex items-center gap-2 mx-auto sm:mx-0">
             <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-            <span>CICLO SEMANAL: <span id="slots-count" class="text-green-300">04</span> VAGAS RESTANTES</span>
+            <span>CICLO SEMANAL: <span id="slots-count" class="text-green-300">04</span> VAGAS</span>
+            <div class="hidden sm:block w-px h-3 bg-white/20 mx-2"></div>
+            <span class="hidden sm:inline opacity-90">ENCERRA EM:</span>
+            <span id="countdown-timer" class="bg-black/30 px-2 py-0.5 rounded border border-white/10 tabular-nums ml-2 sm:ml-0">00:00:00</span>
         </div>
-        <div class="hidden sm:block w-px h-3 bg-white/20"></div>
-        <div class="flex items-center gap-2 opacity-90">
-            <span>ENCERRA EM:</span>
-            <span id="countdown-timer" class="bg-black/30 px-2 py-0.5 rounded border border-white/10 tabular-nums">00:00:00</span>
-        </div>
+        <button onclick="document.getElementById('scarcity-bar').style.transform = 'translateY(-100%)'" class="p-1 hover:bg-white/10 rounded sm:absolute sm:right-4">
+            <i data-lucide="x" class="w-3 h-3"></i>
+        </button>
     </div>
 
-    <!-- Navbar -->
-    <header id="site-header" class="fixed top-10 w-full z-50 transition-all duration-300 px-4">
-        <div class="max-w-7xl mx-auto glass rounded-full px-6 py-3 flex justify-between items-center relative">
-            
+    <!-- Navigation Core -->
+    <header id="site-header" class="fixed top-12 w-full z-50 transition-all duration-300 px-4">
+        <div class="max-w-7xl mx-auto glass rounded-full px-6 py-3 flex justify-between items-center relative shadow-2xl shadow-black/50">
             <a href="#" onclick="router('home')" class="flex flex-col leading-none group cursor-pointer select-none">
-                <span class="text-2xl font-black font-display tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 group-hover:opacity-80 transition-opacity">BR360</span>
+                <span class="text-xl font-black font-display tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 group-hover:opacity-80 transition-opacity">BR360º</span>
                 <span class="text-[9px] font-bold uppercase tracking-[0.3em] text-gray-500 ml-0.5">Intelligence</span>
             </a>
 
-            <!-- Desktop Nav -->
             <nav class="hidden md:flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/5">
                 <button onclick="router('home')" class="nav-btn px-6 py-2 text-xs font-medium text-white bg-white/10 rounded-full transition-all" data-target="home">Início</button>
-                <button onclick="router('solutions')" class="nav-btn px-6 py-2 text-xs text-gray-400 hover:text-white transition-all" data-target="solutions">Soluções</button>
+                
+                <!-- Serviços Dropdown -->
+                <div class="relative group">
+                    <button class="nav-btn px-6 py-2 text-xs text-gray-400 hover:text-white transition-all flex items-center gap-1 group-hover:text-white">
+                        Serviços <i data-lucide="chevron-down" class="w-3 h-3 transition-transform group-hover:rotate-180"></i>
+                    </button>
+                    
+                    <!-- Dropdown Menu -->
+                    <div class="absolute top-full left-1/2 -translate-x-1/2 pt-4 w-96 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
+                        <div class="bg-[#111] border border-white/10 rounded-2xl p-2 shadow-2xl backdrop-blur-xl">
+                            <!-- Item B2C -->
+                            <div onclick="router('b2c')" class="p-4 hover:bg-white/5 rounded-xl cursor-pointer transition-colors group/item">
+                                <div class="flex items-center gap-3 mb-1">
+                                    <div class="p-2 bg-indigo-500/20 rounded-lg text-indigo-400 group-hover/item:text-white group-hover/item:bg-indigo-500 transition-colors">
+                                        <i data-lucide="user" class="w-4 h-4"></i>
+                                    </div>
+                                    <span class="text-sm font-bold text-white">Para Você</span>
+                                </div>
+                                <p class="text-[10px] text-gray-500 leading-snug pl-11">
+                                    Médicos, C-Levels e Profissionais Liberais buscando autoridade.
+                                </p>
+                            </div>
+
+                            <!-- Divider -->
+                            <div class="h-px bg-white/5 my-1 mx-2"></div>
+
+                            <!-- Item B2B -->
+                            <div onclick="router('b2b')" class="p-4 hover:bg-white/5 rounded-xl cursor-pointer transition-colors group/item">
+                                <div class="flex items-center gap-3 mb-1">
+                                    <div class="p-2 bg-purple-500/20 rounded-lg text-purple-400 group-hover/item:text-white group-hover/item:bg-purple-500 transition-colors">
+                                        <i data-lucide="building-2" class="w-4 h-4"></i>
+                                    </div>
+                                    <span class="text-sm font-bold text-white">Para Empresas</span>
+                                </div>
+                                <p class="text-[10px] text-gray-500 leading-snug pl-11">
+                                    Corporações, Universidades, Institutos e ONGs.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="router('manifesto')" class="nav-btn px-6 py-2 text-xs text-gray-400 hover:text-white transition-all" data-target="manifesto">Manifesto</button>
                 <button onclick="router('cases')" class="nav-btn px-6 py-2 text-xs text-gray-400 hover:text-white transition-all" data-target="cases">Cases</button>
-                <button onclick="router('blog')" class="nav-btn px-6 py-2 text-xs text-gray-400 hover:text-white transition-all" data-target="blog">Insights</button>
+                <a href="https://medium.com/@br360" target="_blank" class="nav-btn px-6 py-2 text-xs text-gray-400 hover:text-white transition-all flex items-center gap-2">
+                    Insights <i data-lucide="external-link" class="w-3 h-3"></i>
+                </a>
             </nav>
 
             <div class="flex items-center gap-3">
-                <button onclick="router('contact')" class="hidden md:flex items-center gap-2 px-5 py-2.5 bg-white text-black rounded-full text-xs font-bold hover:bg-gray-200 hover:scale-105 transition-all shadow-lg shadow-white/10">
+                <button onclick="router('contact')" class="hidden md:flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full text-xs font-bold hover:opacity-90 hover:scale-105 transition-all shadow-lg shadow-white/10">
                     Agendar Kick-off
                 </button>
                 <button id="menu-btn" class="md:hidden p-2 text-white bg-white/10 rounded-full hover:bg-white/20 transition-colors">
@@ -136,16 +162,51 @@
         </div>
     </header>
 
-    <!-- Mobile Menu Drawer -->
-    <div id="mobile-menu" class="fixed inset-0 bg-bg/95 backdrop-blur-xl z-[70] transform translate-x-full transition-transform duration-300 flex flex-col justify-center px-8">
-        <button id="close-menu" class="absolute top-8 right-8 p-3 text-white bg-white/10 rounded-full hover:bg-white/20"><i data-lucide="x" class="w-6 h-6"></i></button>
-        <div class="space-y-6">
-            <button onclick="mobileNav('home')" class="block text-5xl font-black font-display text-white hover:text-primary transition-colors text-left">Início</button>
-            <button onclick="mobileNav('solutions')" class="block text-4xl font-bold font-display text-gray-500 hover:text-white transition-colors text-left">Soluções</button>
-            <button onclick="mobileNav('cases')" class="block text-4xl font-bold font-display text-gray-500 hover:text-white transition-colors text-left">Cases</button>
-            <button onclick="mobileNav('blog')" class="block text-4xl font-bold font-display text-gray-500 hover:text-white transition-colors text-left">Insights</button>
-            <div class="pt-8 border-t border-white/10">
-                <button onclick="mobileNav('contact')" class="w-full py-4 bg-white text-black font-bold rounded-xl text-lg">Agendar Kick-off</button>
+    <!-- Mobile Drawer (Articulado) -->
+    <div id="mobile-menu" class="fixed inset-0 bg-[#050505] z-[100] transform translate-x-full transition-transform duration-300 flex flex-col px-6 py-6 overflow-y-auto">
+        <!-- Header Mobile Interno -->
+        <div class="flex justify-between items-center mb-8 border-b border-white/10 pb-6">
+            <a href="#" onclick="mobileNav('home')" class="flex flex-col leading-none group cursor-pointer select-none">
+                <span class="text-xl font-black font-display tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">BR360º</span>
+                <span class="text-[9px] font-bold uppercase tracking-[0.3em] text-gray-500 ml-0.5">Intelligence</span>
+            </a>
+            <button id="close-menu" class="p-3 text-white bg-white/10 rounded-full hover:bg-white/20 transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- Links Principais -->
+        <div class="flex-1 space-y-6">
+            <button onclick="mobileNav('home')" class="block text-4xl font-bold font-display text-white hover:text-primary transition-colors text-left w-full">Início</button>
+            
+            <div class="space-y-4 border-l-2 border-white/10 pl-6 py-2">
+                <span class="text-xs text-gray-500 font-mono uppercase tracking-widest block mb-2">Serviços</span>
+                <button onclick="mobileNav('b2c')" class="block text-2xl font-bold font-display text-gray-300 hover:text-white transition-colors text-left w-full">Para Você</button>
+                <button onclick="mobileNav('b2b')" class="block text-2xl font-bold font-display text-gray-300 hover:text-white transition-colors text-left w-full">Para Empresas</button>
+            </div>
+
+            <button onclick="mobileNav('manifesto')" class="block text-4xl font-bold font-display text-gray-500 hover:text-white transition-colors text-left w-full">Manifesto</button>
+            <button onclick="mobileNav('cases')" class="block text-4xl font-bold font-display text-gray-500 hover:text-white transition-colors text-left w-full">Cases</button>
+            <button onclick="mobileNav('executores')" class="block text-4xl font-bold font-display text-gray-500 hover:text-white transition-colors text-left w-full">Quem Somos</button>
+            <a href="https://medium.com/@br360" target="_blank" class="block text-4xl font-bold font-display text-gray-500 hover:text-white transition-colors text-left">Insights</a>
+        </div>
+
+        <!-- CTA & Footer Mobile -->
+        <div class="mt-12 pt-8 border-t border-white/10 space-y-8">
+            <button onclick="mobileNav('contact')" class="w-full py-5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-2xl text-xl shadow-xl hover:opacity-90 transition-opacity">
+                Agendar Kick-off
+            </button>
+
+            <div class="text-center">
+                <p class="text-sm text-gray-500 mb-4">Campinas, SP • Brasil</p>
+                <div class="flex justify-center gap-6 mb-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="instagram" class="w-6 h-6"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i data-lucide="mail" class="w-6 h-6"></i></a>
+                </div>
+                <p class="text-[10px] text-gray-600 font-mono uppercase tracking-widest">
+                    &copy; 2025 BR360º Intelligence.
+                </p>
             </div>
         </div>
     </div>
@@ -153,254 +214,446 @@
     <!-- MAIN APP CONTAINER -->
     <main id="app" class="relative pt-32 min-h-screen">
 
-        <!-- VIEW: HOME -->
+        <!-- VIEW: HOME (COMPLETE) -->
         <section id="home" class="page-view active">
             <!-- Hero -->
-            <div class="relative min-h-[80vh] flex items-center justify-center px-4 mb-20">
+            <div class="relative min-h-[75vh] flex items-center justify-center px-4 mb-20">
                 <div class="absolute inset-0 z-0 rounded-[40px] overflow-hidden mx-4 md:mx-8 border border-white/5">
-                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop" class="w-full h-full object-cover opacity-30 mix-blend-overlay scale-105 animate-pulse-slow">
-                    <div class="absolute inset-0 bg-gradient-to-t from-bg via-bg/60 to-bg/30"></div>
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop" class="w-full h-full object-cover opacity-20 mix-blend-overlay scale-105 animate-pulse-slow">
+                    <div class="absolute inset-0 bg-gradient-to-t from-bg via-bg/80 to-bg/40"></div>
                 </div>
 
-                <div class="relative z-10 text-center max-w-5xl px-6">
+                <div class="relative z-10 text-center max-w-5xl px-6 pt-20">
                     <div class="reveal inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8 hover:bg-white/10 transition-colors cursor-default">
                         <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                        <span class="text-[10px] font-mono uppercase tracking-widest text-gray-300">Design Estratégico 360º</span>
+                        <span class="text-[10px] font-mono uppercase tracking-widest text-gray-300">Agenda Março: 2 Vagas</span>
                     </div>
-                    <h1 class="reveal delay-100 text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white mb-8 leading-[0.95] font-display">
-                        A evolução da <br />
-                        <span class="text-gradient">sua marca.</span>
+                    <h1 class="reveal delay-100 text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white mb-8 leading-[1.1] font-display">
+                        Estratégia de Marca<br />
+                        <span class="text-gradient">Sem Ruído.</span>
                     </h1>
                     <p class="reveal delay-200 text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
-                        Unimos criatividade visual, tecnologia proprietária e narrativa institucional para posicionar líderes e empresas na nova economia.
+                        Consultoria boutique para quem exige clareza estratégica e execução cirúrgica. Eliminamos o "achismo" para gerar autoridade.
                     </p>
                     <div class="reveal delay-300 flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <button onclick="document.getElementById('method-section').scrollIntoView({behavior:'smooth'})" class="px-8 py-4 bg-white text-black rounded-full font-bold hover:scale-105 transition-transform flex items-center gap-2 shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-                            Conhecer Método <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                        <button onclick="router('b2c')" class="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-full font-bold hover:scale-105 transition-all shadow-[0_0_30px_rgba(99,102,241,0.3)] flex items-center gap-2">
+                            Para Você <i data-lucide="user" class="w-4 h-4"></i>
                         </button>
-                        <button onclick="router('cases')" class="px-8 py-4 border border-white/20 text-white rounded-full font-bold hover:bg-white/5 transition-colors">
-                            Ver Portfolio
+                        <button onclick="router('b2b')" class="px-8 py-4 bg-white rounded-full font-bold hover:scale-105 transition-all shadow-lg hover:shadow-white/20 group">
+                            <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 group-hover:opacity-80 transition-opacity">Para Empresas</span>
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Logos Marquee -->
-            <div class="py-16 border-y border-white/5 bg-bgCard overflow-hidden relative">
-                <div class="animate-marquee whitespace-nowrap flex gap-20 items-center opacity-40 hover:opacity-100 transition-opacity duration-500 grayscale hover:grayscale-0">
-                    <span class="text-2xl font-bold font-display text-white">FORBES</span>
-                    <span class="text-2xl font-bold font-display text-white">UNICAMP</span>
-                    <span class="text-2xl font-bold font-display text-white">ONU</span>
-                    <span class="text-2xl font-bold font-display text-white">FIESP</span>
-                    <span class="text-2xl font-bold font-display text-white">GOOGLE</span>
-                    <span class="text-2xl font-bold font-display text-white">AMAZON</span>
-                    <span class="text-2xl font-bold font-display text-white">FORBES</span>
-                    <span class="text-2xl font-bold font-display text-white">UNICAMP</span>
-                    <span class="text-2xl font-bold font-display text-white">ONU</span>
-                    <span class="text-2xl font-bold font-display text-white">FIESP</span>
-                    <span class="text-2xl font-bold font-display text-white">GOOGLE</span>
-                </div>
-            </div>
-
-            <!-- Method Section -->
-            <div id="method-section" class="max-w-7xl mx-auto px-6 py-32">
-                <div class="text-center mb-20 reveal">
-                    <span class="text-primary text-xs font-mono uppercase tracking-widest mb-4 block">Metodologia Ágil</span>
-                    <h2 class="text-4xl md:text-5xl font-bold font-display text-white mb-6">Processo 360º</h2>
-                    <p class="text-gray-400 text-lg max-w-2xl mx-auto">Eliminamos o "achismo" para entregar resultados baseados em dados.</p>
-                </div>
-
-                <div class="grid md:grid-cols-4 gap-6">
-                    <div class="glass-card p-8 rounded-3xl relative overflow-hidden group reveal delay-100">
-                        <div class="absolute -top-10 -right-10 w-24 h-24 bg-indigo-500/20 rounded-full blur-2xl group-hover:bg-indigo-500/40 transition-all"></div>
-                        <span class="text-4xl font-black text-indigo-500/30 mb-4 block">01</span>
-                        <h3 class="text-xl font-bold text-white mb-2">Imersão</h3>
-                        <p class="text-sm text-gray-400">Diagnóstico profundo, benchmarking e definição de OKRs.</p>
-                    </div>
-                    <div class="glass-card p-8 rounded-3xl relative overflow-hidden group reveal delay-200">
-                        <div class="absolute -top-10 -right-10 w-24 h-24 bg-purple-500/20 rounded-full blur-2xl group-hover:bg-purple-500/40 transition-all"></div>
-                        <span class="text-4xl font-black text-purple-500/30 mb-4 block">02</span>
-                        <h3 class="text-xl font-bold text-white mb-2">Estratégia</h3>
-                        <p class="text-sm text-gray-400">Brand Persona, Arquitetura de Canais e Tática.</p>
-                    </div>
-                    <div class="glass-card p-8 rounded-3xl relative overflow-hidden group reveal delay-300">
-                        <div class="absolute -top-10 -right-10 w-24 h-24 bg-pink-500/20 rounded-full blur-2xl group-hover:bg-pink-500/40 transition-all"></div>
-                        <span class="text-4xl font-black text-pink-500/30 mb-4 block">03</span>
-                        <h3 class="text-xl font-bold text-white mb-2">Execução</h3>
-                        <p class="text-sm text-gray-400">Produção técnica high-end (Design, Code, Vídeo).</p>
-                    </div>
-                    <div class="glass-card p-8 rounded-3xl relative overflow-hidden group reveal delay-400">
-                        <div class="absolute -top-10 -right-10 w-24 h-24 bg-emerald-500/20 rounded-full blur-2xl group-hover:bg-emerald-500/40 transition-all"></div>
-                        <span class="text-4xl font-black text-emerald-500/30 mb-4 block">04</span>
-                        <h3 class="text-xl font-bold text-white mb-2">Entrega</h3>
-                        <p class="text-sm text-gray-400">Lançamento, monitoramento de dados e otimização.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Process Section -->
-            <section class="max-w-7xl mx-auto px-6 py-32 border-t border-white/5">
-                <div class="text-center mb-20 reveal">
-                    <span class="text-primary text-xs font-mono uppercase tracking-widest mb-4 block">Processo Criativo</span>
-                    <h2 class="text-4xl md:text-5xl font-bold font-display text-white mb-6">O que você recebe</h2>
-                    <p class="text-gray-400 text-lg max-w-2xl mx-auto">Tangibilizamos o intangível. Cada entrega é um ativo de valor.</p>
+            <!-- Pilares & Benefícios -->
+            <section class="max-w-7xl mx-auto px-6 py-20">
+                <div class="text-center mb-16 reveal">
+                    <span class="text-primary font-mono uppercase text-xs tracking-widest mb-4 block">Nossa Abordagem</span>
+                    <h2 class="text-4xl font-bold font-display text-white mb-4">Pilares de Atuação</h2>
                 </div>
                 <div class="grid md:grid-cols-3 gap-8">
-                    <div class="glass-card p-8 rounded-3xl reveal delay-100">
-                        <div class="w-12 h-12 bg-indigo-500/20 rounded-full flex items-center justify-center mb-6 text-indigo-400 font-bold font-display text-xl">1</div>
-                        <h3 class="text-xl font-bold text-white mb-3">Roadmap Estratégico</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Não entregamos apenas design. Você recebe um plano tático detalhado com cronograma, KPIs e análise de concorrência.</p>
+                    <div class="glass-card p-8 rounded-3xl text-center">
+                        <div class="w-14 h-14 bg-indigo-900/30 rounded-full flex items-center justify-center mx-auto mb-6 text-indigo-400">
+                            <i data-lucide="zap" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4">Velocidade</h3>
+                        <p class="text-sm text-gray-400">Processos ágeis. Entregas em semanas, não meses. Sem burocracia de grandes agências.</p>
                     </div>
-                    <div class="glass-card p-8 rounded-3xl reveal delay-200">
-                        <div class="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mb-6 text-purple-400 font-bold font-display text-xl">2</div>
-                        <h3 class="text-xl font-bold text-white mb-3">Assets Proprietários</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Todos os arquivos abertos e editáveis. Sistemas de design escaláveis, códigos limpos e documentação técnica completa.</p>
+                    <div class="glass-card p-8 rounded-3xl text-center">
+                        <div class="w-14 h-14 bg-purple-900/30 rounded-full flex items-center justify-center mx-auto mb-6 text-purple-400">
+                            <i data-lucide="target" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4">Precisão</h3>
+                        <p class="text-sm text-gray-400">Estratégia baseada em dados reais e benchmarks de mercado, não em suposições.</p>
                     </div>
-                    <div class="glass-card p-8 rounded-3xl reveal delay-300">
-                        <div class="w-12 h-12 bg-pink-500/20 rounded-full flex items-center justify-center mb-6 text-pink-400 font-bold font-display text-xl">3</div>
-                        <h3 class="text-xl font-bold text-white mb-3">Acompanhamento e Dados</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Relatórios mensais de performance com insights acionáveis. Não te abandonamos após o lançamento.</p>
+                    <div class="glass-card p-8 rounded-3xl text-center">
+                        <div class="w-14 h-14 bg-pink-900/30 rounded-full flex items-center justify-center mx-auto mb-6 text-pink-400">
+                            <i data-lucide="award" class="w-7 h-7"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4">Autoridade</h3>
+                        <p class="text-sm text-gray-400">Posicionamento premium para quem deseja ser percebido como líder em seu nicho.</p>
                     </div>
+                </div>
+            </section>
+
+            <!-- Processo -->
+            <section class="bg-white/5 py-20 border-y border-white/5">
+                <div class="max-w-6xl mx-auto px-6 text-center">
+                    <h2 class="text-3xl font-bold font-display text-white mb-16">Metodologia em 3 Passos</h2>
+                    <div class="grid md:grid-cols-3 gap-12 relative">
+                        <div class="hidden md:block absolute top-8 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+                        
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-[#111] border border-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                <i data-lucide="microscope" class="w-8 h-8 text-white"></i>
+                            </div>
+                            <h3 class="font-bold text-white mb-2">1. Diagnóstico</h3>
+                            <p class="text-sm text-gray-400">Mapeamento de gaps e oportunidades.</p>
+                        </div>
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-[#111] border border-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                <i data-lucide="map" class="w-8 h-8 text-white"></i>
+                            </div>
+                            <h3 class="font-bold text-white mb-2">2. Estratégia</h3>
+                            <p class="text-sm text-gray-400">Criação do plano tático e identidade.</p>
+                        </div>
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-[#111] border border-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                <i data-lucide="rocket" class="w-8 h-8 text-white"></i>
+                            </div>
+                            <h3 class="font-bold text-white mb-2">3. Execução</h3>
+                            <p class="text-sm text-gray-400">Implementação e monitoramento.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Newsletter -->
+            <section class="max-w-4xl mx-auto px-6 py-20">
+                <div class="glass-card p-10 rounded-[32px] text-center border border-white/10">
+                    <div class="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6 text-white">
+                        <i data-lucide="mail" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">BR360º Papers</h3>
+                    <p class="text-gray-400 mb-8 max-w-lg mx-auto text-sm">Receba insights semanais sobre estratégia de marca e mercado. Sem spam, apenas inteligência.</p>
+                    <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                        <input type="email" placeholder="Seu melhor e-mail" class="flex-1 bg-black border border-white/20 rounded-xl px-4 py-3 text-white focus:border-primary focus:outline-none transition-colors">
+                        <button class="bg-white text-black font-bold px-6 py-3 rounded-xl hover:bg-gray-200 transition-colors">Assinar</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Form -->
+            <section class="py-20 px-6 bg-black border-t border-white/5">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h2 class="text-3xl font-bold font-display text-white mb-8">Vamos Conversar?</h2>
+                    <form id="home-contact-form" class="text-left space-y-6" onsubmit="handleFormSubmit(event)">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <input type="text" placeholder="Nome" class="w-full bg-[#111] border border-white/10 rounded-xl px-4 py-4 text-white focus:border-primary focus:outline-none">
+                            <input type="email" placeholder="Email Corporativo" class="w-full bg-[#111] border border-white/10 rounded-xl px-4 py-4 text-white focus:border-primary focus:outline-none">
+                        </div>
+                        <select class="w-full bg-[#111] border border-white/10 rounded-xl px-4 py-4 text-white focus:border-primary focus:outline-none">
+                            <option value="">Qual seu objetivo principal?</option>
+                            <option value="Posicionamento">Posicionamento de Marca</option>
+                            <option value="Vendas">Aumentar Vendas</option>
+                            <option value="Identidade">Nova Identidade Visual</option>
+                        </select>
+                        <button class="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl hover:opacity-90 transition-all shadow-lg">Solicitar Contato</button>
+                    </form>
                 </div>
             </section>
         </section>
 
-        <!-- VIEW: SOLUTIONS (DYNAMIC TOGGLE) -->
-        <section id="solutions" class="page-view px-4 py-12">
-            <div class="max-w-7xl mx-auto">
+        <!-- VIEW: MANIFESTO (NOVO) -->
+        <section id="manifesto" class="page-view px-4 py-12 bg-bg">
+            <div class="max-w-4xl mx-auto text-center">
+                <span class="text-primary font-mono uppercase text-xs tracking-widest mb-8 block">Nossa Filosofia</span>
                 
-                <!-- DYNAMIC HERO & TOGGLE -->
-                <div class="text-center mb-16">
-                    <!-- Toggle Switch -->
-                    <div class="inline-flex items-center p-1 bg-white/5 rounded-full border border-white/5 mb-8 backdrop-blur-sm relative">
-                        <!-- Sliding Background -->
-                        <div id="toggle-bg" class="absolute w-[calc(50%-4px)] h-[calc(100%-8px)] top-1 left-1 bg-primary rounded-full transition-all duration-300 ease-out z-0"></div>
-                        
-                        <button onclick="toggleSolutions('b2c')" id="btn-b2c" class="relative z-10 px-8 py-2.5 rounded-full text-sm font-bold transition-colors duration-300 text-white">Para Você</button>
-                        <button onclick="toggleSolutions('b2b')" id="btn-b2b" class="relative z-10 px-8 py-2.5 rounded-full text-sm font-bold transition-colors duration-300 text-gray-400 hover:text-white">Para Empresas</button>
-                    </div>
+                <h1 class="text-5xl md:text-7xl font-black font-display text-white leading-tight mb-12">
+                    Não acreditamos em sorte.<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-500">Acreditamos em Dados.</span>
+                </h1>
 
-                    <!-- Dynamic Texts -->
-                    <span id="sol-tag" class="text-primary font-mono uppercase text-xs tracking-widest mb-4 block animate-in fade-in zoom-in duration-300">Liderança & Carreira</span>
-                    <h1 id="sol-title" class="text-5xl md:text-7xl font-black font-display text-white mb-6 animate-in fade-in slide-in-from-bottom-4 duration-500">Para Você</h1>
-                    <p id="sol-desc" class="text-xl text-gray-400 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500 delay-100">Posicione-se como uma autoridade indiscutível no seu nicho.</p>
+                <div class="glass-card p-10 md:p-16 rounded-[40px] border border-white/10 text-left space-y-8">
+                    <p class="text-xl md:text-2xl text-gray-300 font-light leading-relaxed">
+                        Em um mercado saturado de "gurus" e fórmulas mágicas, escolhemos o caminho da <strong class="text-white font-bold">engenharia reversa</strong>.
+                    </p>
+                    <div class="w-24 h-px bg-white/20"></div>
+                    <p class="text-lg text-gray-400 leading-relaxed">
+                        Não vendemos arte pela arte. Vendemos performance. Cada cor, cada palavra e cada pixel em nossos projetos tem uma função estratégica: <strong class="text-white">converter atenção em receita</strong>.
+                    </p>
+                    <p class="text-lg text-gray-400 leading-relaxed">
+                        Somos anti-achismo. Somos pró-teste. Se não pode ser medido, não deve ser feito. Essa é a nossa promessa: tratar sua marca não como um quadro na parede, mas como um ativo financeiro de alto rendimento.
+                    </p>
+                    
+                    <div class="pt-8">
+                        <button onclick="router('executores')" class="px-8 py-4 border border-white/20 rounded-full text-white font-bold hover:bg-white hover:text-black transition-all">
+                            Conheça Quem Executa
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW: PARA VOCÊ (B2C) -->
+        <section id="b2c" class="page-view px-4 py-12">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <span class="text-indigo-400 font-mono uppercase text-xs tracking-widest mb-4 block">Profissionais & Líderes</span>
+                    <h1 class="text-5xl font-black font-display text-white mb-6">Para Você</h1>
+                    <p class="text-xl text-gray-400 max-w-2xl mx-auto">Construção de autoridade para Médicos, C-Levels e Profissionais Liberais que são a própria marca.</p>
                 </div>
 
-                <!-- VIEW CONTAINER: B2C -->
-                <div id="view-b2c" class="transition-all duration-500 opacity-100 translate-y-0">
-                    <!-- Detalhes do Serviço -->
-                    <div class="grid md:grid-cols-2 gap-12 mb-24 items-center">
-                        <div class="space-y-8">
-                            <div class="glass-card p-8 rounded-3xl" onclick="openServiceModal('b2c', 'brand')">
-                                <i data-lucide="user" class="w-8 h-8 text-primary mb-4"></i>
-                                <h3 class="text-2xl font-bold text-white mb-2">Personal Branding 360</h3>
-                                <p class="text-gray-400">Construção de arquétipo, narrativa e identidade visual pessoal alinhada aos seus objetivos de carreira.</p>
+                <!-- PRICING MODULE -->
+                <div class="max-w-6xl mx-auto mb-20">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-bold font-display text-white mb-4">Planos Transparentes</h2>
+                        <p class="text-gray-400 mb-8">Escolha o nível de aceleração que sua carreira precisa.</p>
+                        
+                        <!-- Toggle -->
+                        <div class="flex items-center justify-center gap-4 mb-10">
+                            <span class="text-sm font-medium text-gray-400" id="billing-monthly">Mensal</span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="pricing-toggle" class="sr-only peer" onchange="togglePricing()">
+                                <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                            </label>
+                            <span class="text-sm font-medium text-white" id="billing-annual">Anual <span class="text-xs text-green-400 font-bold ml-1">(20% OFF)</span></span>
+                        </div>
+                    </div>
+
+                    <!-- Pricing Cards Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        
+                        <!-- Plan 1: Start -->
+                        <div class="glass-card p-8 rounded-2xl border border-white/10 hover:border-indigo-500/30 transition-all relative flex flex-col">
+                            <div class="text-center mb-6">
+                                <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center mx-auto mb-4 text-white">
+                                    <i data-lucide="layers" class="w-6 h-6"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-white">Start</h3>
+                                <p class="text-sm text-gray-400 mt-2 h-10">Para quem está começando a se posicionar digitalmente.</p>
                             </div>
-                            <div class="glass-card p-8 rounded-3xl" onclick="openServiceModal('b2c', 'social')">
-                                <i data-lucide="linkedin" class="w-8 h-8 text-primary mb-4"></i>
-                                <h3 class="text-2xl font-bold text-white mb-2">LinkedIn Ghostwriting</h3>
-                                <p class="text-gray-400">Gestão estratégica de conteúdo. Transformamos sua experiência em artigos de liderança de pensamento.</p>
+                            <div class="text-center mb-6">
+                                <div class="text-4xl font-black text-white pricing-value" data-monthly="2.500" data-yearly="24.000">R$ 2.500</div>
+                                <p class="text-xs text-gray-500 mt-1 pricing-period">/mês</p>
+                            </div>
+                            <button onclick="router('contact')" class="w-full py-3 border border-white/20 hover:bg-white hover:text-black text-white rounded-xl font-bold transition-all mb-8">Começar Agora</button>
+                            <div class="space-y-3 text-sm text-gray-300 flex-1">
+                                <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">O que está incluso</p>
+                                <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 text-indigo-400 flex-shrink-0"></i> Otimização de Perfil (LinkedIn)</li>
+                                <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 text-indigo-400 flex-shrink-0"></i> 4 Posts Estratégicos/mês</li>
+                                <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 text-indigo-400 flex-shrink-0"></i> Design de Capas Essencial</li>
+                                <li class="flex gap-3 text-gray-600"><i data-lucide="x" class="w-4 h-4 text-gray-600 flex-shrink-0"></i> <span class="line-through">Artigos de Opinião</span></li>
                             </div>
                         </div>
-                        <div class="relative h-[500px] rounded-[32px] overflow-hidden border border-white/10 group">
-                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105">
-                            <div class="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-transparent"></div>
-                            <div class="absolute bottom-8 left-8 text-white p-6 bg-black/40 backdrop-blur-md rounded-2xl border border-white/10 max-w-[85%]">
-                                <p class="font-display font-bold text-xl italic mb-4">"A BR360 elevou meu perfil a Top Voice em 3 meses."</p>
-                                <div class="flex items-center gap-3">
-                                    <div class="w-8 h-8 rounded-full bg-white/20"></div>
-                                    <div>
-                                        <p class="text-sm font-bold text-white">Julia M.</p>
-                                        <p class="text-xs text-gray-400">CEO, Fintech Latam</p>
+
+                        <!-- Plan 2: Authority (Recommended) -->
+                        <div class="glass-card p-8 rounded-2xl border border-indigo-500 bg-indigo-500/5 relative transform md:-translate-y-4 flex flex-col shadow-2xl shadow-indigo-900/20">
+                            <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-indigo-500 text-white px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase">Recomendado</div>
+                            <div class="text-center mb-6 pt-4">
+                                <div class="w-12 h-12 bg-indigo-500 rounded-xl flex items-center justify-center mx-auto mb-4 text-white shadow-lg">
+                                    <i data-lucide="award" class="w-6 h-6"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-white">Authority</h3>
+                                <p class="text-sm text-indigo-200 mt-2 h-10">Para líderes que buscam protagonismo no setor.</p>
+                            </div>
+                            <div class="text-center mb-6">
+                                <div class="text-4xl font-black text-white pricing-value" data-monthly="5.000" data-yearly="48.000">R$ 5.000</div>
+                                <p class="text-xs text-indigo-300 mt-1 pricing-period">/mês</p>
+                            </div>
+                            <button onclick="router('contact')" class="w-full py-3 bg-indigo-500 hover:bg-indigo-400 text-white rounded-xl font-bold transition-all mb-8 shadow-lg">Selecionar Authority</button>
+                            <div class="space-y-3 text-sm text-white flex-1">
+                                <p class="text-xs font-bold text-indigo-300 uppercase tracking-widest mb-3">Tudo do Start, mais:</p>
+                                <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 text-indigo-300 flex-shrink-0"></i> 8 Posts + 2 Artigos/mês</li>
+                                <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 text-indigo-300 flex-shrink-0"></i> Gestão de Comentários</li>
+                                <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 text-indigo-300 flex-shrink-0"></i> Networking Ativo (15min/dia)</li>
+                                <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 text-indigo-300 flex-shrink-0"></i> Relatório de Performance</li>
+                            </div>
+                        </div>
+
+                        <!-- Plan 3: Legacy -->
+                        <div class="glass-card p-8 rounded-2xl border border-white/10 hover:border-purple-500/30 transition-all relative flex flex-col">
+                            <div class="text-center mb-6">
+                                <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center mx-auto mb-4 text-white">
+                                    <i data-lucide="crown" class="w-6 h-6"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-white">Legacy</h3>
+                                <p class="text-sm text-gray-400 mt-2 h-10">Gestão completa de reputação e PR digital.</p>
+                            </div>
+                            <div class="text-center mb-6">
+                                <div class="text-4xl font-black text-white pricing-value" data-monthly="10.000" data-yearly="96.000">R$ 10.000</div>
+                                <p class="text-xs text-gray-500 mt-1 pricing-period">/mês</p>
+                            </div>
+                            <button onclick="router('contact')" class="w-full py-3 border border-white/20 hover:bg-white hover:text-black text-white rounded-xl font-bold transition-all mb-8">Falar com Consultor</button>
+                            <div class="space-y-3 text-sm text-gray-300 flex-1">
+                                <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Tudo do Authority, mais:</p>
+                                <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 text-purple-400 flex-shrink-0"></i> 12 Posts + 4 Artigos/mês</li>
+                                <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 text-purple-400 flex-shrink-0"></i> Assessoria de Imprensa (Light)</li>
+                                <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 text-purple-400 flex-shrink-0"></i> Ghostwriting de Newsletter</li>
+                                <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 text-purple-400 flex-shrink-0"></i> Acesso Direto ao Estrategista</li>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- SERVIÇOS AVULSOS B2C -->
+                    <div class="mt-20 pt-10 border-t border-white/5">
+                        <div class="text-center mb-10">
+                            <h3 class="text-2xl font-bold font-display text-white mb-2">Contratações Avulsas</h3>
+                            <p class="text-gray-400 text-sm">Soluções pontuais para necessidades específicas.</p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <!-- Service 1 -->
+                            <div class="glass-card p-6 rounded-2xl border border-white/5 hover:border-indigo-500/30 transition-all flex flex-col group cursor-pointer" onclick="router('contact')">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="p-2 bg-indigo-500/10 rounded-lg text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-colors">
+                                            <i data-lucide="mic" class="w-5 h-5"></i>
+                                        </div>
+                                        <h4 class="font-bold text-white">Mentoria Express</h4>
                                     </div>
+                                </div>
+                                <p class="text-sm text-gray-400 mb-6 flex-1">Sessão de 1h para destravar um desafio específico de carreira ou marca. Diagnóstico rápido e plano de ação.</p>
+                                <div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
+                                    <span class="text-sm font-bold text-white">R$ 900</span>
+                                    <span class="text-xs font-bold text-indigo-400 group-hover:translate-x-1 transition-transform flex items-center gap-1">Agendar <i data-lucide="arrow-right" class="w-3 h-3"></i></span>
+                                </div>
+                            </div>
+                            <!-- Service 2 -->
+                            <div class="glass-card p-6 rounded-2xl border border-white/5 hover:border-indigo-500/30 transition-all flex flex-col group cursor-pointer" onclick="router('contact')">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="p-2 bg-indigo-500/10 rounded-lg text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-colors">
+                                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                                        </div>
+                                        <h4 class="font-bold text-white">Review LinkedIn</h4>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-400 mb-6 flex-1">Auditoria gravada (Loom) do seu perfil com lista de melhorias práticas em copy, foto e configuração.</p>
+                                <div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
+                                    <span class="text-sm font-bold text-white">R$ 450</span>
+                                    <span class="text-xs font-bold text-indigo-400 group-hover:translate-x-1 transition-transform flex items-center gap-1">Solicitar <i data-lucide="arrow-right" class="w-3 h-3"></i></span>
+                                </div>
+                            </div>
+                            <!-- Service 3 -->
+                            <div class="glass-card p-6 rounded-2xl border border-white/5 hover:border-indigo-500/30 transition-all flex flex-col group cursor-pointer" onclick="router('contact')">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="p-2 bg-indigo-500/10 rounded-lg text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-colors">
+                                            <i data-lucide="camera" class="w-5 h-5"></i>
+                                        </div>
+                                        <h4 class="font-bold text-white">Shooting Day</h4>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-400 mb-6 flex-1">Sessão de fotos corporativas em estúdio ou externa. Direção de arte inclusa para garantir posicionamento.</p>
+                                <div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
+                                    <span class="text-xs font-mono text-gray-500 uppercase">Sob Consulta</span>
+                                    <span class="text-xs font-bold text-indigo-400 group-hover:translate-x-1 transition-transform flex items-center gap-1">Ver Datas <i data-lucide="arrow-right" class="w-3 h-3"></i></span>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
 
-                    <!-- Pricing Plans -->
-                    <h3 class="text-3xl font-bold text-white mb-10 text-center font-display">Planos Individuais</h3>
-                    <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-                        <!-- Start -->
-                        <div class="p-8 rounded-3xl bg-[#0F0F0F] border border-white/5 hover:border-white/20 transition-all flex flex-col group">
-                            <h3 class="text-xl font-bold text-white mb-2">Start</h3>
-                            <p class="text-sm text-gray-400 mb-6 h-8">Digitalização inicial e presença.</p>
-                            <div class="text-3xl font-bold text-white mb-6">R$ 2.5k<span class="text-sm text-gray-500 font-normal">/mês</span></div>
-                            <ul class="space-y-3 text-sm text-gray-300 mb-8 flex-1">
-                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-white"></i> Otimização de Perfil</li>
-                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-white"></i> 4 Artigos/mês</li>
-                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-white"></i> Design de Capas</li>
+        <!-- VIEW: PARA EMPRESAS (B2B) -->
+        <section id="b2b" class="page-view px-4 py-12">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <span class="text-purple-400 font-mono uppercase text-xs tracking-widest mb-4 block">Corporativo & Institucional</span>
+                    <h1 class="text-5xl font-black font-display text-white mb-6">Para Empresas</h1>
+                    <p class="text-xl text-gray-400 max-w-2xl mx-auto">Soluções para Corporações, Universidades, Institutos, Fundações e ONGs que precisam escalar impacto.</p>
+                </div>
+
+                <!-- PRICING MODULE B2B (SIMPLIFIED FOR ENTERPRISE CONTEXT) -->
+                <div class="max-w-6xl mx-auto mb-20">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        
+                        <!-- B2B Plan 1: Squad -->
+                        <div class="glass-card p-8 rounded-2xl border border-purple-500/30 hover:border-purple-500 transition-all flex flex-col group">
+                            <div class="mb-6">
+                                <div class="w-12 h-12 bg-purple-900/30 rounded-xl flex items-center justify-center mb-4 text-purple-400">
+                                    <i data-lucide="users" class="w-6 h-6"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-white">Squad Alocado</h3>
+                                <p class="text-sm text-gray-400 mt-2">Uma equipe de marketing completa dentro da sua operação.</p>
+                            </div>
+                            <div class="mb-8">
+                                <span class="text-sm text-purple-400 font-bold uppercase tracking-widest">A partir de</span>
+                                <div class="text-3xl font-black text-white mt-1">R$ 12k<span class="text-base font-normal text-gray-500">/mês</span></div>
+                            </div>
+                            <ul class="space-y-4 mb-8 text-sm text-gray-300 flex-1">
+                                <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 text-purple-400"></i> Designer Sênior + Copywriter</li>
+                                <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 text-purple-400"></i> Gestor de Tráfego Dedicado</li>
+                                <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 text-purple-400"></i> Reuniões Semanais de Sprint</li>
                             </ul>
-                            <button onclick="selectPackage('Start', 'b2c')" class="w-full py-3 rounded-xl border border-white/20 hover:bg-white hover:text-black font-bold transition-colors">Selecionar</button>
+                            <button onclick="router('contact')" class="w-full py-4 bg-white/5 hover:bg-purple-600 text-white border border-white/10 hover:border-purple-600 rounded-xl font-bold transition-all">
+                                Agendar Reunião
+                            </button>
                         </div>
-                        <!-- Authority -->
-                        <div class="p-8 rounded-3xl bg-[#161616] border border-primary/50 relative flex flex-col shadow-lg shadow-primary/10 hover:shadow-primary/20 transition-all scale-105 z-10">
-                            <span class="absolute top-4 right-4 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded">MAIS ESCOLHIDO</span>
-                            <h3 class="text-xl font-bold text-white mb-2">Authority</h3>
-                            <p class="text-sm text-gray-400 mb-6 h-8">Para quem busca palestras e imprensa.</p>
-                            <div class="text-3xl font-bold text-white mb-6">R$ 5k<span class="text-sm text-gray-500 font-normal">/mês</span></div>
-                            <ul class="space-y-3 text-sm text-gray-300 mb-8 flex-1">
-                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-primary"></i> 8 Posts + 2 Artigos</li>
-                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-primary"></i> Assessoria de Imprensa (Light)</li>
-                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-primary"></i> Mídia Kit Profissional</li>
+
+                        <!-- B2B Plan 2: Project (Featured) -->
+                        <div class="glass-card p-8 rounded-2xl border-2 border-purple-500 bg-purple-900/10 flex flex-col relative transform md:-translate-y-2">
+                            <div class="absolute top-0 right-0 bg-purple-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl uppercase">Alta Demanda</div>
+                            <div class="mb-6">
+                                <div class="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center mb-4 text-white shadow-lg shadow-purple-500/20">
+                                    <i data-lucide="rocket" class="w-6 h-6"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-white">Projeto Pontual</h3>
+                                <p class="text-sm text-purple-200 mt-2">Para lançamentos, rebranding ou campanhas específicas.</p>
+                            </div>
+                            <div class="mb-8">
+                                <span class="text-sm text-purple-300 font-bold uppercase tracking-widest">Investimento Único</span>
+                                <div class="text-3xl font-black text-white mt-1">Sob Medida</div>
+                            </div>
+                            <ul class="space-y-4 mb-8 text-sm text-white flex-1">
+                                <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 text-purple-300"></i> Escopo Fechado (Sem Aditivos)</li>
+                                <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 text-purple-300"></i> Cronograma de Entrega Rígido</li>
+                                <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 text-purple-300"></i> Hand-off Completo para Equipe Interna</li>
                             </ul>
-                            <button onclick="selectPackage('Authority', 'b2c')" class="w-full py-3 rounded-xl bg-primary hover:bg-indigo-500 text-white font-bold transition-colors">Selecionar</button>
+                            <button onclick="router('contact')" class="w-full py-4 bg-purple-600 hover:bg-purple-500 text-white rounded-xl font-bold transition-all shadow-lg shadow-purple-900/40">
+                                Solicitar Orçamento
+                            </button>
+                        </div>
+
+                        <!-- B2B Plan 3: Enterprise -->
+                        <div class="glass-card p-8 rounded-2xl border border-white/10 hover:border-purple-500/30 transition-all flex flex-col group">
+                            <div class="mb-6">
+                                <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center mb-4 text-white">
+                                    <i data-lucide="building" class="w-6 h-6"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-white">Enterprise</h3>
+                                <p class="text-sm text-gray-400 mt-2">Consultoria C-Level para reestruturação de marketing.</p>
+                            </div>
+                            <div class="mb-8">
+                                <span class="text-sm text-purple-400 font-bold uppercase tracking-widest">Retainer</span>
+                                <div class="text-3xl font-black text-white mt-1">Sob Consulta</div>
+                            </div>
+                            <ul class="space-y-4 mb-8 text-sm text-gray-300 flex-1">
+                                <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 text-purple-400"></i> Diagnóstico de Gaps de Receita</li>
+                                <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 text-purple-400"></i> Implementação de Cultura de Dados</li>
+                                <li class="flex gap-3"><i data-lucide="check" class="w-4 h-4 text-purple-400"></i> Treinamento de Lideranças</li>
+                            </ul>
+                            <button onclick="router('contact')" class="w-full py-4 border border-white/20 hover:bg-white hover:text-black text-white rounded-xl font-bold transition-all">
+                                Falar com Diretor
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- SOLUÇÕES SOB DEMANDA B2B -->
+                    <div class="mt-20 pt-10 border-t border-white/5">
+                        <div class="text-center mb-10">
+                            <h3 class="text-2xl font-bold font-display text-white mb-2">Soluções Sob Demanda</h3>
+                            <p class="text-gray-400 text-sm">Expertise pontual para destravar sua operação.</p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <!-- Service 1 -->
+                            <div class="glass-card p-6 rounded-2xl border border-purple-500/20 hover:border-purple-500 transition-all flex flex-col group cursor-pointer" onclick="router('contact')">
+                                <div class="w-10 h-10 bg-purple-900/30 rounded-lg flex items-center justify-center mb-4 text-purple-400 group-hover:bg-purple-600 group-hover:text-white transition-colors"><i data-lucide="presentation" class="w-5 h-5"></i></div>
+                                <h4 class="font-bold text-white mb-2">Workshops & Treinamentos</h4>
+                                <p class="text-sm text-gray-400 mb-6 flex-1">Capacitação in-company sobre Branding, LinkedIn e Cultura de Dados. Formatos de 4h ou 8h.</p>
+                                <div class="w-full py-2 border border-white/10 rounded-lg text-xs font-bold text-white text-center group-hover:bg-purple-600 group-hover:border-purple-600 transition-all">Cotar Workshop</div>
+                            </div>
+                            <!-- Service 2 -->
+                            <div class="glass-card p-6 rounded-2xl border border-purple-500/20 hover:border-purple-500 transition-all flex flex-col group cursor-pointer" onclick="router('contact')">
+                                <div class="w-10 h-10 bg-purple-900/30 rounded-lg flex items-center justify-center mb-4 text-purple-400 group-hover:bg-purple-600 group-hover:text-white transition-colors"><i data-lucide="search-check" class="w-5 h-5"></i></div>
+                                <h4 class="font-bold text-white mb-2">Auditoria de Marca</h4>
+                                <p class="text-sm text-gray-400 mb-6 flex-1">Raio-X completo da presença digital e percepção de marca atual. Relatório com plano de ação imediato.</p>
+                                <div class="w-full py-2 border border-white/10 rounded-lg text-xs font-bold text-white text-center group-hover:bg-purple-600 group-hover:border-purple-600 transition-all">Solicitar Audit</div>
+                            </div>
+                            <!-- Service 3 -->
+                            <div class="glass-card p-6 rounded-2xl border border-purple-500/20 hover:border-purple-500 transition-all flex flex-col group cursor-pointer" onclick="router('contact')">
+                                <div class="w-10 h-10 bg-purple-900/30 rounded-lg flex items-center justify-center mb-4 text-purple-400 group-hover:bg-purple-600 group-hover:text-white transition-colors"><i data-lucide="mic-2" class="w-5 h-5"></i></div>
+                                <h4 class="font-bold text-white mb-2">Palestras</h4>
+                                <p class="text-sm text-gray-400 mb-6 flex-1">Conteúdo de alto impacto para eventos corporativos e convenções. Temas: Futuro do Branding e ESG.</p>
+                                <div class="w-full py-2 border border-white/10 rounded-lg text-xs font-bold text-white text-center group-hover:bg-purple-600 group-hover:border-purple-600 transition-all">Ver Temas</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- VIEW CONTAINER: B2B -->
-                <div id="view-b2b" class="hidden transition-all duration-500 opacity-0 translate-y-4">
-                    <!-- Detalhes do Serviço -->
-                    <div class="grid md:grid-cols-3 gap-6 mb-24">
-                        <div class="glass-card p-8 rounded-3xl hover:border-secondary/50 transition-colors cursor-pointer" onclick="openServiceModal('b2b', 'growth')">
-                            <i data-lucide="rocket" class="w-8 h-8 text-secondary mb-4"></i>
-                            <h3 class="text-xl font-bold text-white mb-3">Growth & Performance</h3>
-                            <p class="text-sm text-gray-400 leading-relaxed">Gestão de tráfego pago (Ads), automação de marketing e CRM. Foco total em CAC e LTV.</p>
-                        </div>
-                        <div class="glass-card p-8 rounded-3xl hover:border-secondary/50 transition-colors cursor-pointer" onclick="openServiceModal('b2b', 'reports')">
-                            <i data-lucide="pen-tool" class="w-8 h-8 text-secondary mb-4"></i>
-                            <h3 class="text-xl font-bold text-white mb-3">Rebranding Corporativo</h3>
-                            <p class="text-sm text-gray-400 leading-relaxed">Modernização da identidade visual e verbal para alinhar a marca aos novos objetivos de negócio.</p>
-                        </div>
-                        <div class="glass-card p-8 rounded-3xl hover:border-secondary/50 transition-colors cursor-pointer" onclick="openServiceModal('b2b', 'esg')">
-                            <i data-lucide="globe" class="w-8 h-8 text-secondary mb-4"></i>
-                            <h3 class="text-xl font-bold text-white mb-3">Consultoria ESG</h3>
-                            <p class="text-sm text-gray-400 leading-relaxed">Diagnóstico, implementação de práticas e produção de Relatórios de Sustentabilidade (GRI).</p>
-                        </div>
-                    </div>
-
-                    <!-- Pricing Plans -->
-                    <h3 class="text-3xl font-bold text-white mb-10 text-center font-display">Modelos de Parceria</h3>
-                    <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-                        <!-- Squad -->
-                        <div class="p-8 rounded-3xl bg-[#161616] border border-secondary/50 relative flex flex-col shadow-lg shadow-secondary/10 hover:shadow-secondary/20 transition-all scale-105 z-10">
-                            <span class="absolute top-4 right-4 bg-secondary text-white text-[10px] font-bold px-2 py-1 rounded">RECOMENDADO</span>
-                            <h3 class="text-xl font-bold text-white mb-2">Squad Alocado</h3>
-                            <p class="text-sm text-gray-400 mb-6 h-8">Uma equipe completa de marketing dentro da sua empresa.</p>
-                            <div class="text-3xl font-bold text-white mb-6">R$ 12k<span class="text-sm text-gray-500 font-normal">/mês</span></div>
-                            <ul class="space-y-3 text-sm text-gray-300 mb-8 flex-1">
-                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-secondary"></i> Designer, Copywriter e Gestor de Tráfego</li>
-                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-secondary"></i> Reuniões Semanais de Sprint</li>
-                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-secondary"></i> Dashboard em Tempo Real</li>
-                            </ul>
-                            <button onclick="selectPackage('Squad Alocado', 'b2b')" class="w-full py-3 rounded-xl bg-secondary hover:bg-fuchsia-600 text-white font-bold transition-colors">Agendar Reunião</button>
-                        </div>
-                        <!-- Enterprise -->
-                        <div class="p-8 rounded-3xl bg-[#0F0F0F] border border-white/5 hover:border-white/20 transition-all flex flex-col group">
-                            <h3 class="text-xl font-bold text-white mb-2">Enterprise</h3>
-                            <p class="text-sm text-gray-400 mb-6 h-8">Projetos pontuais de alta complexidade.</p>
-                            <div class="text-3xl font-bold text-white mb-6">Sob Consulta</div>
-                            <ul class="space-y-3 text-sm text-gray-300 mb-8 flex-1">
-                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-white"></i> Rebranding Completo</li>
-                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-white"></i> Desenvolvimento de App/Web</li>
-                                <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-white"></i> Relatório ESG Anual</li>
-                            </ul>
-                            <button onclick="selectPackage('Enterprise', 'b2b')" class="w-full py-3 rounded-xl border border-white/20 hover:bg-white hover:text-black font-bold transition-colors">Falar com Consultor</button>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </section>
 
@@ -418,12 +671,81 @@
             </div>
         </section>
 
-        <!-- VIEW: BLOG -->
-        <section id="blog" class="page-view px-4 py-12">
+        <!-- VIEW: EXECUTORES (QUEM SOMOS) -->
+        <section id="executores" class="page-view px-4 py-12">
             <div class="max-w-7xl mx-auto">
-                <h1 class="text-5xl font-black font-display text-white mb-12">Insights</h1>
-                <div class="grid md:grid-cols-3 gap-8" id="blog-grid">
-                    <!-- JS Injected -->
+                <div class="text-center mb-12">
+                    <h1 class="text-5xl font-black font-display text-white mb-6">Quem Entrega</h1>
+                    <p class="text-xl text-gray-400">Inteligência centralizada, execução descentralizada.</p>
+                </div>
+
+                <!-- Tabs -->
+                <div class="flex justify-center gap-4 mb-16">
+                    <button onclick="toggleTeam('founder')" id="tab-founder" class="px-8 py-3 bg-white text-black rounded-full font-bold transition-all">Fundador</button>
+                    <button onclick="toggleTeam('squad')" id="tab-squad" class="px-8 py-3 bg-white/10 text-gray-400 rounded-full font-bold hover:bg-white/20 transition-all">Squads</button>
+                </div>
+
+                <!-- Content: Founder -->
+                <div id="content-founder" class="max-w-5xl mx-auto">
+                    <div class="glass-card p-8 md:p-12 rounded-[40px] flex flex-col md:flex-row items-center gap-12">
+                        <div class="w-full md:w-1/3">
+                            <div class="aspect-square bg-gradient-to-br from-indigo-500 to-purple-600 rounded-3xl overflow-hidden relative group">
+                                <!-- Placeholder for Founder Image -->
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-6 left-6 text-white">
+                                    <h3 class="text-2xl font-bold font-display">Brenër Pompêo</h3>
+                                    <p class="text-sm text-indigo-300">Head de Estratégia</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <h2 class="text-3xl font-bold text-white mb-6">Visão 360º, Execução Cirúrgica.</h2>
+                            <p class="text-gray-400 mb-6 text-lg leading-relaxed">
+                                Especialista em transformar complexidade em narrativas de marca claras e acionáveis. Com background híbrido entre design, tecnologia e negócios, atuo como o "CMO as a Service" para empresas que precisam de senioridade sem o overhead de grandes times internos.
+                            </p>
+                            <p class="text-gray-400 mb-8 text-lg leading-relaxed">
+                                Minha metodologia foca em identificar os gaps que agências tradicionais ignoram: a desconexão entre o que a marca diz e o que ela realmente entrega.
+                            </p>
+                            <div class="flex flex-wrap gap-3">
+                                <span class="px-4 py-2 bg-white/5 rounded-full text-xs text-gray-300 border border-white/10">Estratégia de Marca</span>
+                                <span class="px-4 py-2 bg-white/5 rounded-full text-xs text-gray-300 border border-white/10">Growth Hacking</span>
+                                <span class="px-4 py-2 bg-white/5 rounded-full text-xs text-gray-300 border border-white/10">Consultoria C-Level</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content: Squads -->
+                <div id="content-squad" class="hidden">
+                    <div class="text-center mb-12">
+                        <p class="text-gray-400 max-w-2xl mx-auto">
+                            Para projetos de alta complexidade ou escala, ativo minha rede de parceiros homologados. 
+                            Você mantém um único ponto de contato (eu), mas ganha a força de uma agência full-service.
+                        </p>
+                    </div>
+                    <div class="grid md:grid-cols-4 gap-6">
+                        <div class="glass-card p-6 rounded-2xl text-center hover:bg-white/5 transition-colors">
+                            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 text-white"><i data-lucide="camera" class="w-6 h-6"></i></div>
+                            <h3 class="font-bold text-white">Fotografia</h3>
+                            <p class="text-xs text-gray-500 mt-2">Produções de estúdio e lifestyle corporativo.</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl text-center hover:bg-white/5 transition-colors">
+                            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 text-white"><i data-lucide="film" class="w-6 h-6"></i></div>
+                            <h3 class="font-bold text-white">Motion Graphics</h3>
+                            <p class="text-xs text-gray-500 mt-2">Animações 2D/3D para campanhas.</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl text-center hover:bg-white/5 transition-colors">
+                            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 text-white"><i data-lucide="globe" class="w-6 h-6"></i></div>
+                            <h3 class="font-bold text-white">Full Web Dev</h3>
+                            <p class="text-xs text-gray-500 mt-2">Plataformas complexas e E-commerce.</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl text-center hover:bg-white/5 transition-colors">
+                            <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 text-white"><i data-lucide="users" class="w-6 h-6"></i></div>
+                            <h3 class="font-bold text-white">Consultoria Jurídica</h3>
+                            <p class="text-xs text-gray-500 mt-2">Registro de marca e compliance digital.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -433,52 +755,37 @@
             <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-12">
                     <h1 class="text-5xl font-black font-display text-white mb-4">Inicie o Protocolo</h1>
-                    <p class="text-gray-400">Nosso time técnico analisará sua viabilidade.</p>
+                    <p class="text-gray-400">Preencha para agendarmos sua sessão estratégica.</p>
                 </div>
 
-                <form id="main-contact-form" class="glass-card p-10 rounded-[32px] space-y-6 mb-20 shadow-2xl" onsubmit="handleFormSubmit(event)">
-                    <!-- Hidden Fields for Tracking -->
-                    <input type="hidden" id="form-segment" name="segment" value="B2C">
-                    <input type="hidden" id="form-package" name="package" value="">
-
+                <form id="main-contact-form" class="glass-card p-10 rounded-[32px] space-y-6 mb-20 shadow-2xl border border-white/10" onsubmit="handleFormSubmit(event)">
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Nome Completo</label>
                             <input type="text" required class="w-full bg-black border border-white/10 rounded-xl px-4 py-4 text-white focus:border-primary focus:outline-none transition-colors" placeholder="Seu nome">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Empresa / Cargo</label>
-                            <input type="text" class="w-full bg-black border border-white/10 rounded-xl px-4 py-4 text-white focus:border-primary focus:outline-none transition-colors" placeholder="Sua empresa">
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Email Corporativo</label>
+                            <input type="email" required class="w-full bg-black border border-white/10 rounded-xl px-4 py-4 text-white focus:border-primary focus:outline-none transition-colors" placeholder="email@empresa.com">
                         </div>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Email Corporativo</label>
-                        <input type="email" required class="w-full bg-black border border-white/10 rounded-xl px-4 py-4 text-white focus:border-primary focus:outline-none transition-colors" placeholder="voce@empresa.com">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Interesse Principal</label>
                         <select id="form-interest" class="w-full bg-black border border-white/10 rounded-xl px-4 py-4 text-white focus:border-primary focus:outline-none transition-colors">
                             <option value="">Selecione...</option>
-                            <option value="Consultoria Estratégica">Consultoria Estratégica</option>
-                            <option value="Rebranding">Rebranding</option>
-                            <option value="Tecnologia / Web">Tecnologia / Web</option>
-                            <option value="ESG">ESG</option>
-                            <option value="Pacote Start">Pacote Start</option>
-                            <option value="Pacote Authority">Pacote Authority</option>
-                            <option value="Squad Alocado">Squad Alocado</option>
-                            <option value="Pacote Enterprise">Pacote Enterprise</option>
+                            <option value="Consultoria Estratégica">Consultoria Estratégica (Imersão/Roadmap)</option>
+                            <option value="Branding">Branding & Identidade</option>
+                            <option value="Tech">Tech & Landing Pages</option>
+                            <option value="Conteudo">Conteúdo & Vídeo</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Detalhes do Desafio</label>
-                        <textarea rows="4" class="w-full bg-black border border-white/10 rounded-xl px-4 py-4 text-white focus:border-primary focus:outline-none transition-colors" placeholder="Breve descrição..."></textarea>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Descreva seu desafio atual</label>
+                        <textarea rows="4" class="w-full bg-black border border-white/10 rounded-xl px-4 py-4 text-white focus:border-primary focus:outline-none transition-colors" placeholder="Ex: Preciso reposicionar minha marca em 30 dias..."></textarea>
                     </div>
                     <button class="w-full py-5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl hover:opacity-90 transition-opacity shadow-lg text-lg">
-                        Enviar Aplicação
+                        Solicitar Agenda
                     </button>
-                    <p class="text-center text-xs text-gray-600 flex items-center justify-center gap-2">
-                        <i data-lucide="lock" class="w-3 h-3"></i> Dados criptografados e seguros.
-                    </p>
                 </form>
             </div>
         </section>
@@ -491,15 +798,31 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                 <div class="col-span-1 md:col-span-1">
                     <a href="#" onclick="router('home')" class="flex flex-col leading-none group cursor-pointer select-none mb-6">
-                        <span class="text-2xl font-black font-display tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">BR360</span>
+                        <span class="text-2xl font-black font-display tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">BR360º</span>
+                        <span class="text-[9px] font-bold uppercase tracking-[0.3em] text-gray-500 ml-0.5">Intelligence</span>
                     </a>
-                    <p class="text-sm text-gray-500 leading-relaxed mb-6">Consultoria estratégica full-stack. Unimos criatividade, tecnologia e dados.</p>
+                    <p class="text-sm text-gray-500 leading-relaxed mb-6">Consultoria estratégica de marca. Transformamos negócios através da clareza.</p>
                 </div>
                 <div>
                     <h4 class="text-white font-bold mb-6 font-display">Soluções</h4>
                     <ul class="space-y-3 text-sm text-gray-500">
-                        <li><a href="#" onclick="router('solutions'); toggleSolutions('b2b')" class="hover:text-white transition-colors">Para Empresas</a></li>
-                        <li><a href="#" onclick="router('solutions'); toggleSolutions('b2c')" class="hover:text-white transition-colors">Para Você</a></li>
+                        <li><button onclick="router('b2c')" class="hover:text-white transition-colors">Para Você</button></li>
+                        <li><button onclick="router('b2b')" class="hover:text-white transition-colors">Para Empresas</button></li>
+                        <li><button onclick="router('cases')" class="hover:text-white transition-colors">Cases</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6 font-display">Institucional</h4>
+                    <ul class="space-y-3 text-sm text-gray-500">
+                        <li><button onclick="router('manifesto')" class="hover:text-white transition-colors">Manifesto</button></li>
+                        <li><button onclick="router('executores')" class="hover:text-white transition-colors">Quem Somos</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6 font-display">Contato</h4>
+                    <ul class="space-y-3 text-sm text-gray-500">
+                        <li><a href="mailto:contato@br360.com" class="hover:text-white transition-colors">contato@br360.com</a></li>
+                        <li>Campinas, SP</li>
                     </ul>
                 </div>
             </div>
@@ -535,12 +858,12 @@
 
     <!-- FAB -->
     <a href="https://wa.me/5519999999999" target="_blank" class="fixed bottom-6 right-6 z-40 w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300 group">
-        <i data-lucide="message-circle" class="w-7 h-7"></i>
+        <i data-lucide="message-circle" class="w-7 h-7 fill-current"></i>
     </a>
 
     <!-- Application Logic -->
     <script>
-        // --- 1. DATA STORE (Content) ---
+        // --- DATA STORE ---
         const DB = {
             services: {
                 b2c: [
@@ -573,7 +896,141 @@
             ]
         };
 
-        // --- 2. RENDER ENGINE ---
+        // --- GLOBAL FUNCTIONS ---
+        
+        function router(pageId) {
+            document.querySelectorAll('.page-view').forEach(el => {
+                el.classList.remove('active');
+                setTimeout(() => { if(!el.classList.contains('active')) el.style.display = 'none'; }, 400);
+            });
+
+            const target = document.getElementById(pageId);
+            if(target) {
+                target.style.display = 'block';
+                // Trigger reflow
+                void target.offsetWidth; 
+                target.classList.add('active');
+                window.scrollTo(0, 0);
+            }
+
+            // Close Mobile Menu if open
+            const menu = document.getElementById('mobile-menu');
+            if(menu) {
+                menu.classList.remove('translate-x-0');
+                menu.classList.add('translate-x-full');
+            }
+        }
+
+        function mobileNav(pageId) {
+            router(pageId);
+        }
+
+        function toggleSolutions(type) {
+            // Just routing for now, can be expanded for specific tab logic within a page
+            router(type);
+        }
+
+        function openServiceModal(type, serviceId) {
+            // Find service across all categories if type is not strictly provided or generic
+            let service = null;
+            if (DB.services[type]) {
+                service = DB.services[type].find(s => s.id === serviceId);
+            } else {
+                // Fallback search
+                for (const cat in DB.services) {
+                    service = DB.services[cat].find(s => s.id === serviceId);
+                    if (service) break;
+                }
+            }
+
+            if(!service) return;
+
+            const modal = document.getElementById('service-modal');
+            
+            document.getElementById('modal-title').textContent = service.title;
+            document.getElementById('modal-desc').textContent = service.desc;
+            document.getElementById('modal-icon').innerHTML = `<i data-lucide="${service.icon}" class="w-8 h-8"></i>`;
+            
+            // Populate Tags
+            const tagsContainer = document.getElementById('modal-tags');
+            tagsContainer.innerHTML = service.tags.map(t => `<span class="px-3 py-1 bg-white/10 rounded-lg text-sm text-gray-300 border border-white/5">${t}</span>`).join('');
+            
+            // Configure CTA
+            document.getElementById('modal-cta').onclick = () => {
+                modal.close();
+                router('contact');
+            };
+
+            lucide.createIcons();
+            modal.showModal();
+        }
+
+        function toggleTeam(tab) {
+            const btnFounder = document.getElementById('tab-founder');
+            const btnSquad = document.getElementById('tab-squad');
+            const contentFounder = document.getElementById('content-founder');
+            const contentSquad = document.getElementById('content-squad');
+
+            if(tab === 'founder') {
+                btnFounder.className = "px-8 py-3 bg-white text-black rounded-full font-bold transition-all";
+                btnSquad.className = "px-8 py-3 bg-white/10 text-gray-400 rounded-full font-bold hover:bg-white/20 transition-all";
+                contentFounder.classList.remove('hidden');
+                contentSquad.classList.add('hidden');
+            } else {
+                btnSquad.className = "px-8 py-3 bg-white text-black rounded-full font-bold transition-all";
+                btnFounder.className = "px-8 py-3 bg-white/10 text-gray-400 rounded-full font-bold hover:bg-white/20 transition-all";
+                contentSquad.classList.remove('hidden');
+                contentFounder.classList.add('hidden');
+            }
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const name = e.target.querySelector('input[placeholder*="nome"]').value;
+            alert(`Obrigado, ${name}! Recebemos sua solicitação. Entraremos em contato em breve.`);
+        }
+
+        function togglePricing() {
+            const isAnnual = document.getElementById('pricing-toggle').checked;
+            const prices = document.querySelectorAll('.pricing-value');
+            const periods = document.querySelectorAll('.pricing-period');
+            const monthlyLabel = document.getElementById('billing-monthly');
+            const annualLabel = document.getElementById('billing-annual');
+
+            if (isAnnual) {
+                monthlyLabel.classList.replace('text-white', 'text-gray-400');
+                annualLabel.classList.replace('text-gray-400', 'text-white');
+                annualLabel.classList.add('font-bold');
+                
+                prices.forEach(el => {
+                    el.innerText = 'R$ ' + el.dataset.yearly;
+                    el.classList.add('scale-110');
+                    setTimeout(() => el.classList.remove('scale-110'), 200);
+                });
+                periods.forEach(el => el.innerText = '/ano');
+            } else {
+                annualLabel.classList.replace('text-white', 'text-gray-400');
+                annualLabel.classList.remove('font-bold');
+                monthlyLabel.classList.replace('text-gray-400', 'text-white');
+                
+                prices.forEach(el => {
+                    el.innerText = 'R$ ' + el.dataset.monthly;
+                    el.classList.add('scale-110');
+                    setTimeout(() => el.classList.remove('scale-110'), 200);
+                });
+                periods.forEach(el => el.innerText = '/mês');
+            }
+        }
+
+        // Dummy functions for potential future features or cleanup
+        function downloadResource(name) { alert("Download iniciado para: " + name); }
+        function acceptCookies() { /* Logic for cookies */ }
+        function updateROI() { /* Logic for ROI calculator */ }
+        function transferRoiToForm() { /* Logic for ROI transfer */ }
+        function updateFormFields() { /* Logic for form fields */ }
+
+
+        // --- RENDER FUNCTIONS ---
         function renderCases() {
             const container = document.getElementById('cases-grid');
             if (!container) return; 
@@ -612,222 +1069,53 @@
             `).join('');
         }
 
-        // --- 3. LOGIC & INTERACTION ---
-        
-        let currentSegment = 'b2c';
-
-        function toggleSolutions(type) {
-            currentSegment = type;
-            
-            // DOM Elements
-            const btnB2C = document.getElementById('btn-b2c');
-            const btnB2B = document.getElementById('btn-b2b');
-            const toggleBg = document.getElementById('toggle-bg');
-            
-            const viewB2C = document.getElementById('view-b2c');
-            const viewB2B = document.getElementById('view-b2b');
-            
-            // Texts
-            const title = document.getElementById('sol-title');
-            const desc = document.getElementById('sol-desc');
-            const tag = document.getElementById('sol-tag');
-
-            // --- STATE UPDATE ---
-            if(type === 'b2c') {
-                // UI Toggle
-                toggleBg.style.left = '4px';
-                toggleBg.style.backgroundColor = '#6366f1'; // Indigo (Primary)
-                btnB2C.classList.replace('text-gray-400', 'text-white');
-                btnB2C.classList.remove('hover:text-white');
-                btnB2B.classList.replace('text-white', 'text-gray-400');
-                btnB2B.classList.add('hover:text-white');
-                
-                // Content Swap
-                viewB2B.classList.add('opacity-0', 'translate-y-4');
-                setTimeout(() => {
-                    viewB2B.classList.add('hidden');
-                    viewB2C.classList.remove('hidden');
-                    // Force Reflow
-                    void viewB2C.offsetWidth;
-                    viewB2C.classList.remove('opacity-0', 'translate-y-0'); 
-                }, 300);
-                
-                // Text Update
-                tag.innerText = "Liderança & Carreira";
-                tag.className = "text-primary font-mono uppercase text-xs tracking-widest mb-4 block animate-in fade-in zoom-in duration-300";
-                title.innerText = "Para Você";
-                desc.innerText = "Posicione-se como uma autoridade indiscutível no seu nicho.";
-
-            } else {
-                // UI Toggle
-                toggleBg.style.left = 'calc(100% - 4px)';
-                toggleBg.style.transform = 'translateX(-100%)';
-                toggleBg.style.backgroundColor = '#d946ef'; // Fuchsia (Secondary)
-                
-                btnB2B.classList.replace('text-gray-400', 'text-white');
-                btnB2B.classList.remove('hover:text-white');
-                btnB2C.classList.replace('text-white', 'text-gray-400');
-                btnB2C.classList.add('hover:text-white');
-
-                // Content Swap
-                viewB2C.classList.add('opacity-0', 'translate-y-0'); // Reset pos for exit? No, keep logic simple
-                viewB2C.classList.add('opacity-0');
-                setTimeout(() => {
-                    viewB2C.classList.add('hidden');
-                    viewB2B.classList.remove('hidden');
-                    void viewB2B.offsetWidth;
-                    viewB2B.classList.remove('opacity-0', 'translate-y-4');
-                }, 300);
-
-                // Text Update
-                tag.innerText = "Scale-ups & Corporativo";
-                tag.className = "text-secondary font-mono uppercase text-xs tracking-widest mb-4 block animate-in fade-in zoom-in duration-300";
-                title.innerText = "Para Empresas";
-                desc.innerText = "Consultoria Full-Stack para escalar operações e valuation.";
-            }
-            
-            // Update hidden field for segment tracking
-            document.getElementById('form-segment').value = type.toUpperCase();
-        }
-
-        // Handle Service Modal
-        function openServiceModal(type, serviceId) {
-            const service = DB.services[type].find(s => s.id === serviceId);
-            if(!service) return;
-
-            const modal = document.getElementById('service-modal');
-            
-            document.getElementById('modal-title').textContent = service.title;
-            document.getElementById('modal-desc').textContent = service.desc;
-            document.getElementById('modal-icon').innerHTML = `<i data-lucide="${service.icon}" class="w-8 h-8"></i>`;
-            
-            // Populate Tags
-            const tagsContainer = document.getElementById('modal-tags');
-            tagsContainer.innerHTML = service.tags.map(t => `<span class="px-3 py-1 bg-white/10 rounded-lg text-sm text-gray-300 border border-white/5">${t}</span>`).join('');
-            
-            // Configure CTA
-            document.getElementById('modal-cta').onclick = () => {
-                modal.close();
-                selectPackage(service.title, type); // Treat service selection as package interest
-            };
-
-            lucide.createIcons();
-            modal.showModal();
-        }
-
-        // Handle Package Selection -> Form Prefill
-        function selectPackage(packageName, type) {
-            router('contact');
-            
-            // 1. Set Segment if different
-            if(type !== currentSegment) toggleSolutions(type);
-            document.getElementById('form-segment').value = type.toUpperCase();
-            
-            // 2. Set Hidden Package Field
-            document.getElementById('form-package').value = packageName;
-
-            // 3. Set Select Dropdown
-            const select = document.getElementById('form-interest');
-            
-            // Try to find exact match or partial match
-            let found = false;
-            for(let i=0; i<select.options.length; i++) {
-                if(select.options[i].value.includes(packageName)) {
-                    select.selectedIndex = i;
-                    found = true;
-                    break;
-                }
-            }
-            // Fallback for "Outro" or generic if not found
-            if(!found) select.value = "Outro";
-
-            // Scroll to form
-            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Form Handler
-        function handleFormSubmit(e) {
-            e.preventDefault();
-            const segment = document.getElementById('form-segment').value;
-            const pkg = document.getElementById('form-package').value;
-            const interest = document.getElementById('form-interest').value;
-            
-            console.log(`Lead Generated: [${segment}] Interest: ${interest} (Pkg: ${pkg})`);
-            
-            alert(`Recebemos sua aplicação para o perfil ${segment}. \nInteresse: ${interest} ${pkg ? '- ' + pkg : ''}. \nEntraremos em contato em breve.`);
-        }
-
-        // Router
-        function router(pageId) {
-            document.querySelectorAll('.page-view').forEach(el => {
-                el.classList.remove('active');
-                setTimeout(() => { if(!el.classList.contains('active')) el.style.display = 'none'; }, 400);
-            });
-
-            const target = document.getElementById(pageId);
-            if(target) {
-                target.style.display = 'block';
-                void target.offsetWidth; 
-                target.classList.add('active');
-                window.scrollTo(0, 0);
-            }
-
-            // Nav Active State
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                if(btn.dataset.target === pageId) {
-                    btn.classList.add('text-white', 'bg-white/10');
-                    btn.classList.remove('text-gray-400');
-                } else {
-                    btn.classList.remove('text-white', 'bg-white/10');
-                    btn.classList.add('text-gray-400');
-                }
-            });
-        }
-
-        function mobileNav(pageId) {
-            router(pageId);
-            document.getElementById('mobile-menu').classList.remove('translate-x-0');
-            document.getElementById('mobile-menu').classList.add('translate-x-full');
-        }
-
-        // Scarcity Timer
-        function initTimer() {
-            const timerEl = document.getElementById('countdown-timer');
-            const slotsEl = document.getElementById('slots-count');
-            
-            const now = new Date();
-            const nextSunday = new Date();
-            nextSunday.setDate(now.getDate() + (7 - now.getDay()) % 7);
-            nextSunday.setHours(23, 59, 59, 999);
-
-            const slotsMap = [2, 10, 9, 7, 5, 4, 3];
-            slotsEl.innerText = String(slotsMap[now.getDay()]).padStart(2, '0');
-
-            setInterval(() => {
-                const diff = nextSunday - new Date();
-                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const s = Math.floor((diff % (1000 * 60)) / 1000);
-                timerEl.innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-            }, 1000);
-        }
-
-        // --- 4. INITIALIZATION ---
+        // --- INIT ---
         document.addEventListener('DOMContentLoaded', () => {
             renderCases();
             renderBlog();
             lucide.createIcons();
-            initTimer();
+
+            // Scarcity Timer
+            const timerEl = document.getElementById('countdown-timer');
+            if(timerEl) {
+                const now = new Date();
+                const nextSunday = new Date();
+                nextSunday.setDate(now.getDate() + (7 - now.getDay()) % 7);
+                nextSunday.setHours(23, 59, 59, 999);
+
+                setInterval(() => {
+                    const diff = nextSunday - new Date();
+                    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const s = Math.floor((diff % (1000 * 60)) / 1000);
+                    timerEl.innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+                }, 1000);
+            }
 
             const obs = new IntersectionObserver((entries) => {
                 entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
             }, { threshold: 0.1 });
             document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-            const mMenu = document.getElementById('mobile-menu');
-            document.getElementById('menu-btn').onclick = () => { mMenu.classList.remove('translate-x-full'); mMenu.classList.add('translate-x-0'); };
-            document.getElementById('close-menu').onclick = () => { mMenu.classList.remove('translate-x-0'); mMenu.classList.add('translate-x-full'); };
+            // Mobile Menu Logic (Full Screen Overlay)
+            const btnOpen = document.getElementById('menu-btn');
+            const btnClose = document.getElementById('close-menu');
+            const menu = document.getElementById('mobile-menu');
 
+            if(btnOpen && btnClose && menu) {
+                btnOpen.onclick = () => { 
+                    menu.classList.remove('translate-x-full'); 
+                    menu.classList.add('translate-x-0');
+                    document.body.classList.add('menu-open');
+                };
+                btnClose.onclick = () => { 
+                    menu.classList.remove('translate-x-0'); 
+                    menu.classList.add('translate-x-full');
+                    document.body.classList.remove('menu-open');
+                };
+            }
+
+            // Start at Home
             router('home');
         });
     </script>
